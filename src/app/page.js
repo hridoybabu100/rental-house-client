@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import FeaturedProperties from "@/components/FeaturedPropertics";
+import HowItWorks from "@/components/HowIt";
 import PopularCities from "@/components/PopulerCities";
 import RatingSection from "@/components/RatingSection";
 import RecentlyAdded from "@/components/RecentlyAdded";
@@ -15,6 +16,7 @@ export default function Home() {
       <PopularCities></PopularCities>
       <RecentlyAdded></RecentlyAdded>
       <RatingSection></RatingSection>
+      <HowItWorks></HowItWorks>
     </div>
   );
 }
