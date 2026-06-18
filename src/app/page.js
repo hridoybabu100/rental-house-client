@@ -1,10 +1,20 @@
 import Banner from "@/components/Banner";
+import FeaturedProperties from "@/components/FeaturedPropertics";
+import PopularCities from "@/components/PopulerCities";
+import RatingSection from "@/components/RatingSection";
+import RecentlyAdded from "@/components/RecentlyAdded";
+import WhyChooseUs from "@/components/WhyChoseUs";
 
 
 export default function Home() {
   return (
     <div>
       <Banner></Banner>
+      <FeaturedProperties></FeaturedProperties>
+      <WhyChooseUs></WhyChooseUs>
+      <PopularCities></PopularCities>
+      <RecentlyAdded></RecentlyAdded>
+      <RatingSection></RatingSection>
     </div>
   );
 }
