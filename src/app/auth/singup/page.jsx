@@ -1,133 +1,182 @@
 "use client";
 
-import { useState } from "react";
-import { Mail, Lock, User, Image as ImageIcon, UserCheck } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
 
-export default function SignupPage() {
-  const [role, setRole] = useState("user");
+import { Card, CardHeader, CardContent as CardBody, Input, Button, Label, Form, Select, SelectTrigger, SelectValue, SelectIndicator, SelectPopover, ListBox, ListBoxItem } from "@heroui/react";
+import { FaUser, FaEnvelope, FaLock, FaImage, FaGoogle } from "react-icons/fa";
+import Logo from "@/components/Logo";
+import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { uploadImage } from "@/utils/UploadImage";
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-6">
 
-      <div className="w-full max-w-md bg-slate-900/60 border border-slate-800 rounded-2xl p-8 shadow-2xl backdrop-blur-xl">
+export default function RegisterPage() {
 
-        {/* Title */}
-        <h2 className="text-3xl font-bold text-white text-center">
-          Create Account
-        </h2>
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-        <p className="text-slate-400 text-center mt-2 text-sm">
-          Join our real estate platform
-        </p>
 
-        {/* Form */}
-        <form className="mt-8 space-y-4">
 
-          {/* Name */}
-          <div className="relative">
-            <User className="absolute left-3 top-3 text-slate-400" size={18} />
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full h-12 bg-slate-950 border border-slate-800 rounded-lg pl-10 text-white focus:border-blue-500 outline-none"
-            />
-          </div>
 
-          {/* Email */}
-          <div className="relative">
-            <Mail className="absolute left-3 top-3 text-slate-400" size={18} />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full h-12 bg-slate-950 border border-slate-800 rounded-lg pl-10 text-white focus:border-blue-500 outline-none"
-            />
-          </div>
+    const onSubmit = async (data) => {
+        // Upload image to imgbb
+        console.log(data);
 
-          {/* Password */}
-          <div className="relative">
-            <Lock className="absolute left-3 top-3 text-slate-400" size={18} />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full h-12 bg-slate-950 border border-slate-800 rounded-lg pl-10 text-white focus:border-blue-500 outline-none"
-            />
-          </div>
+        const imageFile = data.image[0];
+        const imageUrl = await uploadImage(imageFile)
+        // console.log(imageUrl);
 
-          {/* Image URL */}
-          <div className="relative">
-            <ImageIcon className="absolute left-3 top-3 text-slate-400" size={18} />
-            <input
-              type="text"
-              placeholder="Profile Image URL"
-              className="w-full h-12 bg-slate-950 border border-slate-800 rounded-lg pl-10 text-white focus:border-blue-500 outline-none"
-            />
-          </div>
 
-          {/* Role Select */}
-          <div className="flex gap-3">
+        const { data: signUpData, error: signUpError } = await authClient.signUp.email({
+            email: data.email,
+            password: data.password,
+            name: data.name,
+            image: imageUrl,
+            role: data.role
+        })
 
-            <button
-              type="button"
-              onClick={() => setRole("user")}
-              className={`w-1/2 h-12 rounded-lg border flex items-center justify-center gap-2 transition ${
-                role === "user"
-                  ? "bg-blue-600 border-blue-500 text-white"
-                  : "bg-slate-950 border-slate-800 text-slate-400"
-              }`}
-            >
-              <UserCheck size={18} />
-              User
-            </button>
+        // console.log(signUpData, signUpError);
 
-            <button
-              type="button"
-              onClick={() => setRole("owner")}
-              className={`w-1/2 h-12 rounded-lg border flex items-center justify-center gap-2 transition ${
-                role === "owner"
-                  ? "bg-indigo-600 border-indigo-500 text-white"
-                  : "bg-slate-950 border-slate-800 text-slate-400"
-              }`}
-            >
-              <UserCheck size={18} />
-              Owner
-            </button>
+        if (signUpError) {
+            toast.error("Registration not succeed...")
+        }
+        else {
+            redirect("/")
+        }
 
-          </div>
 
-          {/* Submit */}
-          <button className="w-full h-12 mt-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:scale-105 transition">
-            Create Account
-          </button>
+    }
+    console.log(errors);
 
-        </form>
+    return (
+        <div>
+            <Card className="w-full max-w-lg border border-white/5 bg-slate-950/70 backdrop-blur-xl shadow-2xl p-4 mx-auto">
+                <CardHeader className="flex flex-col gap-1 items-center pb-6 text-center">
+                    <Logo />
+                    <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-pink-500 bg-clip-text text-transparent">
+                        Create an Account
+                    </h1>
+                    <p className="text-slate-400 text-sm mt-1">
+                        Join Ticketo to book premium events or host your own organization.
+                    </p>
+                </CardHeader>
+                <CardBody className="gap-4">
+                    <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
+                        <Label htmlFor="name">Full Name</Label>
 
-        {/* Divider */}
-        <div className="my-6 flex items-center gap-3">
-          <div className="h-px bg-slate-800 flex-1"></div>
-          <span className="text-slate-500 text-sm">OR</span>
-          <div className="h-px bg-slate-800 flex-1"></div>
+
+
+                        <Input
+                            {...register("name", { required: "Name is Required" })}
+                            id="name"
+                            placeholder="John Doe"
+                            labelPlacement="outside"
+                            startContent={<FaUser className="text-slate-400 text-sm" />}
+                            className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                        />
+                        {
+                            errors.name && <p className="text-red-500">{errors.name.message}</p>
+                        }
+                        <Label htmlFor="email">Email Address</Label>
+                        <Input
+                            {...register("email", { required: "Email is Required" })}
+                            id="email"
+                            placeholder="john@example.com"
+                            type="email"
+                            labelPlacement="outside"
+                            startContent={<FaEnvelope className="text-slate-400 text-sm" />}
+                            className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                        />
+                        {
+                            errors.email && <p className="text-red-500">{errors.email.message}</p>
+                        }
+                        <Label htmlFor="image">Profile Image URL</Label>
+
+                        <Input
+                            {...register("image", { required: "image is Required" })}
+                            type="file"
+                            accept="image/*"
+                            id="image"
+                            placeholder="https://example.com/avatar.jpg"
+                            labelPlacement="outside"
+                            startContent={<FaImage className="text-slate-400 text-sm" />}
+                            className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                        />
+                        {
+                            errors.image && <p className="text-red-500">{errors.image.message}</p>
+                        }
+
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                            {...register("password", {
+                                required: "Password is required",
+                                // pattern: {
+                                //     value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+                                //     message:
+                                //         "Password must be at least 6 characters and contain at least one uppercase letter, one lowercase letter, and one number",
+                                // },
+                            })}
+                            id="password"
+                            placeholder="••••••••"
+                            type="password"
+                            labelPlacement="outside"
+                            startContent={<FaLock className="text-slate-400 text-sm" />}
+                            className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                        />
+                        {
+                            errors.password && <p className="text-red-500">{errors.password.message}</p>
+                        }
+
+                        <div className="flex flex-col gap-2 w-full">
+                            <Label htmlFor="role" className="text-sm font-semibold text-slate-300">Select Role</Label>
+                            <select
+                                id="role"
+                                {...register("role", { required: "Role is required" })} className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3">
+                                <option value="attendee">
+                                    Attendee
+                                </option>
+                                <option value="organizer">
+                                    Organizer
+                                </option>
+                            </select>
+                            {
+                                errors.role && <p className="text-red-500">{errors.role.message}</p>
+                            }
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-12 shadow-lg shadow-pink-500/10 hover:shadow-pink-500/20"
+                            radius="lg"
+                        >
+                            Create Account
+                        </Button>
+                    </Form>
+
+                    <div className="flex items-center my-4">
+                        <div className="flex-grow border-t border-white/5" />
+                        <span className="mx-4 text-xs text-slate-500 font-semibold uppercase">Or Sign Up With</span>
+                        <div className="flex-grow border-t border-white/5" />
+                    </div>
+
+                    <Button
+                        variant="bordered"
+                        className="w-full border-white/10 hover:bg-white/5 hover:border-white/20 text-white font-semibold h-11"
+                        radius="lg"
+                        startContent={<FaGoogle className="text-pink-500" />}
+                    >
+                        Google OAuth
+                    </Button>
+
+                    <p className="text-center text-sm text-slate-400 mt-6">
+                        Already have an account?{" "}
+                        <Link href="/login" className="text-pink-500 hover:text-pink-400 font-semibold hover:underline">
+                            Log In
+                        </Link>
+                    </p>
+                </CardBody>
+            </Card>
         </div>
-
-        {/* Google Login */}
-        <button className="w-full h-12 border border-slate-700 rounded-lg text-white flex items-center justify-center gap-2 hover:bg-slate-800 transition">
-          <Image
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            className="w-5 h-5"
-            width={30}
-            height={30}
-            alt="google"
-          />
-          Continue with Google
-        </button>
-
-        {/* Login link */}
-        <p className="text-center text-slate-500 text-sm mt-6">
-          Already have an account?{" "}
-          <span className="text-blue-400 cursor-pointer">Login</span>
-        </p>
-
-      </div>
-    </div>
-  );
+    );
 }
