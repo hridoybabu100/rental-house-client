@@ -1,108 +1,97 @@
-// components/Footer.jsx
-
-import Link from "next/link";
+import { GrLocation, GrPhone, GrMail, GrFacebook, GrTwitter, GrInstagram } from "react-icons/gr";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-gray-300">
-      <div className="max-w-7xl mx-auto px-6 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-20 pb-10 border-t border-slate-800">
 
-          {/* Brand */}
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Top Section */}
+        <div className="grid md:grid-cols-4 gap-10">
+
+          {/* Logo */}
           <div>
-            <h2 className="text-2xl font-bold text-white">
-              RentEase
+            <h2 className="text-3xl font-bold text-blue-500">
+              HomeNest
             </h2>
-            <p className="mt-4 text-sm leading-6">
-              Find, rent, and book properties effortlessly. From apartments
-              and villas to commercial spaces, we make property booking simple
-              and secure.
+
+            <p className="text-slate-400 mt-4 text-sm leading-relaxed">
+              Find your dream home easily with verified listings and trusted agents across Bangladesh.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">
-              Quick Links
-            </h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/" className="hover:text-white">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/properties" className="hover:text-white">
-                  Properties
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-white">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-white">
-                  Contact
-                </Link>
-              </li>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-3 text-slate-400">
+
+              <li className="hover:text-blue-400 cursor-pointer transition">Home</li>
+              <li className="hover:text-blue-400 cursor-pointer transition">Properties</li>
+              <li className="hover:text-blue-400 cursor-pointer transition">Cities</li>
+              <li className="hover:text-blue-400 cursor-pointer transition">About</li>
+
             </ul>
           </div>
 
-          {/* Property Types */}
+          {/* Support */}
           <div>
-            <h3 className="text-white font-semibold mb-4">
-              Property Types
-            </h3>
-            <ul className="space-y-3 text-sm">
-              <li>Apartments</li>
-              <li>Houses</li>
-              <li>Villas</li>
-              <li>Commercial Spaces</li>
+            <h3 className="text-lg font-semibold mb-4">Support</h3>
+            <ul className="space-y-3 text-slate-400">
+
+              <li className="hover:text-blue-400 cursor-pointer transition">Help Center</li>
+              <li className="hover:text-blue-400 cursor-pointer transition">Terms</li>
+              <li className="hover:text-blue-400 cursor-pointer transition">Privacy</li>
+              <li className="hover:text-blue-400 cursor-pointer transition">Contact</li>
+
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-4">
-              Contact
-            </h3>
-            <ul className="space-y-3 text-sm">
-              <li>📍 Chattogram, Bangladesh</li>
-              <li>📧 support@rentease.com</li>
-              <li>📞 +880 1234-567890</li>
-            </ul>
+            <h3 className="text-lg font-semibold mb-4">Contact</h3>
 
-            <div className="flex gap-4 mt-5">
-              <a href="#" className="hover:text-white">
-                Facebook
-              </a>
-              <a href="#" className="hover:text-white">
-                LinkedIn
-              </a>
-              <a href="#" className="hover:text-white">
-                Twitter
-              </a>
+            <div className="space-y-3 text-slate-400 text-sm">
+
+              <div className="flex items-center gap-2">
+                <GrLocation className="text-blue-400 text-lg" />
+                Chattogram, Bangladesh
+              </div>
+
+              <div className="flex items-center gap-2">
+                <GrPhone className="text-blue-400 text-lg" />
+                +880 123 456 789
+              </div>
+
+              <div className="flex items-center gap-2">
+                <GrMail className="text-blue-400 text-lg" />
+                support@homenest.com
+              </div>
+
             </div>
           </div>
-
         </div>
+
+        {/* Divider */}
+        <div className="border-t border-slate-800 my-10"></div>
 
         {/* Bottom */}
-        <div className="border-t border-slate-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-          <p>
-            © {new Date().getFullYear()} RentEase. All rights reserved.
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+
+          <p className="text-slate-500 text-sm">
+            © {new Date().getFullYear()} HomeNest. All rights reserved.
           </p>
 
-          <div className="flex gap-5">
-            <Link href="/privacy" className="hover:text-white">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-white">
-              Terms & Conditions
-            </Link>
+          {/* Social */}
+          <div className="flex gap-6 text-xl">
+
+            <GrFacebook className="text-slate-400 hover:text-blue-500 cursor-pointer transition" />
+            <GrTwitter className="text-slate-400 hover:text-blue-400 cursor-pointer transition" />
+            <GrInstagram className="text-slate-400 hover:text-pink-500 cursor-pointer transition" />
+
           </div>
+
         </div>
+
       </div>
     </footer>
   );
