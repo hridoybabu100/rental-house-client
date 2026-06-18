@@ -79,7 +79,7 @@ export default function Navbar() {
                 </button>
               </Link>
               <Link
-                href="/register"
+                href="/auth/singup"
                 className="inline-flex items-center justify-center font-semibold text-xs bg-gradient-to-r from-pink-500 to-indigo-600 text-white shadow-lg shadow-pink-500/10 hover:shadow-pink-500/20 transition h-9 px-4 rounded-xl"
               >
                 Sign Up
