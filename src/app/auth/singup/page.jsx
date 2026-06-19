@@ -58,6 +58,12 @@ export default function RegisterPage() {
   };
   // console.log(errors);
 
+  const signIn = async () => {
+   await authClient.signIn.social({
+    provider: "google",
+  });
+};
+
   return (
     <div>
       <Card className="w-full max-w-lg border border-white/5 bg-slate-950/70 backdrop-blur-xl shadow-2xl p-4 mx-auto">
@@ -173,6 +179,7 @@ export default function RegisterPage() {
           </div>
 
           <Button
+          onClick={signIn}
             variant="bordered"
             className="w-full border-white/10 hover:bg-white/5 hover:border-white/20 text-white font-semibold h-11"
             radius="lg"
