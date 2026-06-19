@@ -1,19 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaTicketAlt, FaUser, FaSignOutAlt, FaThLarge } from "react-icons/fa";
-// import Logo from "./Logo";
-// import ThemeSwitcher from "./ThemeSwitcher";
+import Logo from "./Logo";
 import { useRouter } from "next/navigation";
-// import { authClient, useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-//   const { data: session } = useSession();
+  const { data: session } = useSession();
+  // const data = session?.user
+  // console.log('The user is a', data);
+  
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -39,7 +41,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full border-b border-white/5 bg-slate-950/65 backdrop-blur-md py-3.5 px-6">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* LOGO */}
-        {/* <Logo /> */}
+        <Logo />
 
         {/* NAVIGATION LINKS */}
         <div className="hidden sm:flex items-center gap-8">
@@ -53,25 +55,25 @@ export default function Navbar() {
             href="/events"
             className={`text-sm font-medium transition-colors ${pathname.startsWith("/events") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
           >
-            Browse Events
+            All Properties
           </Link>
-        
+          {session && session?.user && (
             <Link
-              href={`/dashboard/`}
+              href={`/dashboard/${session?.user?.role}`}
               className={`text-sm font-medium transition-colors ${pathname.startsWith("/dashboard") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
             >
               Dashboard
             </Link>
-     \
+          )}
         </div>
 
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-4">
 
 
-   
+          {!session && (
             <div className="flex items-center gap-3">
-              <Link href="/login">
+              <Link href="/auth/login">
                 <button
                   className="inline-flex items-center justify-center font-semibold text-xs text-slate-300 hover:text-white h-9 px-4 rounded-xl hover:bg-white/5 transition"
                 >
@@ -85,10 +87,11 @@ export default function Navbar() {
                 Sign Up
               </Link>
             </div>
-         
+          )}
 
-      
+          {session && session?.user && (
             <div className="relative" ref={dropdownRef}>
+             
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex items-center transition-transform hover:scale-105 outline-none focus:outline-none cursor-pointer"
@@ -97,7 +100,7 @@ export default function Navbar() {
                   width={20}
                   height={20}
                   className="w-9 h-9 rounded-full object-cover border border-pink-500 shadow-md shadow-pink-500/10"
-                  src={'/'}
+                  src={session?.user?.image}
                   alt="avatar"
                 />
               </button>
@@ -109,8 +112,8 @@ export default function Navbar() {
                     <p className="text-[10px] text-pink-400 font-bold uppercase tracking-wider">
                       {session.user.role} Account
                     </p>
-                    <p className="font-bold text-white text-sm mt-0.5">{name}</p>
-                    <p className="text-[11px] text-slate-400 truncate mt-0.5">{email}</p>
+                    <p className="font-bold text-white text-sm mt-0.5">{session.user.name}</p>
+                    <p className="text-[11px] text-slate-400 truncate mt-0.5">{session.user.email}</p>
                   </div>
 
                   {/* Actions */}
@@ -124,7 +127,7 @@ export default function Navbar() {
                   </Link>
 
                   <Link
-                    href={`/dashboard/${role}`}
+                    href={`/dashboard/${session.user.role}`}
                     onClick={() => setDropdownOpen(false)}
                     className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition cursor-pointer"
                   >
@@ -144,7 +147,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-          
+          )}
 
         </div>
       </div>

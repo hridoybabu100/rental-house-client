@@ -1,120 +1,123 @@
+
 "use client";
 
-import { useState } from "react";
-import { Mail, Lock } from "lucide-react";
-import Image from "next/image";
 
-export default function LoginPage() {
-  const [role, setRole] = useState("user");
+import Link from "next/link";
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-6">
+import { Card, CardHeader, CardContent as CardBody, Input, Button, Label, Form } from "@heroui/react";
+import { FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
+import Logo from "@/components/Logo";
+import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
+import { uploadImage } from "@/utils/UploadImage";
 
-      <div className="w-full max-w-md bg-slate-900/60 border border-slate-800 rounded-2xl p-8 shadow-2xl backdrop-blur-xl">
+const LoginPage = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-        {/* Title */}
-        <h2 className="text-3xl font-bold text-white text-center">
-          Welcome Back
-        </h2>
+    
 
-        <p className="text-slate-400 text-center mt-2 text-sm">
-          Login to your account
-        </p>
+    const onSubmit = async (data) => {
 
-        {/* Role Switch */}
-        <div className="flex gap-3 mt-6">
+        const imageFile = data.image[0];
+            const imageUrl = await uploadImage(imageFile);
 
-          <button
-            onClick={() => setRole("user")}
-            className={`w-1/2 h-11 rounded-lg border transition flex items-center justify-center ${
-              role === "user"
-                ? "bg-blue-600 border-blue-500 text-white"
-                : "bg-slate-950 border-slate-800 text-slate-400"
-            }`}
-          >
-            User
-          </button>
+        const { data: signInData, error: signInError } = await authClient.signIn.email({
+            email: data.email,
+            password: data.password,
+            image: imageUrl,
+        })
 
-          <button
-            onClick={() => setRole("owner")}
-            className={`w-1/2 h-11 rounded-lg border transition flex items-center justify-center ${
-              role === "owner"
-                ? "bg-indigo-600 border-indigo-500 text-white"
-                : "bg-slate-950 border-slate-800 text-slate-400"
-            }`}
-          >
-            Owner
-          </button>
+        console.log(signInData, signInError);
 
+        if (signInError) {
+            toast.error("Registration not succeed...")
+        }
+         if (signInData) {
+              toast.success("Login complete...");
+            }
+        else {
+            redirect("/")
+        }
+
+
+    }
+    return (
+        <div className="mx-auto">
+            <Card className="w-full max-w-md border border-white/5 bg-slate-950/70 backdrop-blur-xl shadow-2xl p-4">
+                <CardHeader className="flex flex-col gap-1 items-center pb-6 text-center">
+                    <Logo />
+                    <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-pink-500 bg-clip-text text-transparent">
+                        Welcome Back
+                    </h1>
+                    <p className="text-slate-400 text-sm mt-1">
+                        Access your Ticketo account and purchase event tickets.
+                    </p>
+                </CardHeader>
+                <CardBody className="gap-4">
+                    <Form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="space-y-4 w-full">
+                        <Label htmlFor="email">
+                            Email Address
+                        </Label>
+                        <Input
+                            {...register("email", { required: "email is Required" })}
+                            id="email"
+                            placeholder="john@example.com"
+                            type="email"
+                            labelPlacement="outside"
+                            startContent={<FaEnvelope className="text-slate-400 text-sm" />}
+                            className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                        />
+                        <Label htmlFor="password">
+                            Password
+                        </Label>
+                        <Input
+                            {...register("password", { required: "Password is Required" })}
+                            id="password"
+                            placeholder="••••••••"
+                            type="password"
+                            labelPlacement="outside"
+                            startContent={<FaLock className="text-slate-400 text-sm" />}
+                            className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                        />
+
+                        <Button
+                            type="submit"
+                            className="w-full bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-12 shadow-lg shadow-pink-500/10 hover:shadow-pink-500/20"
+                            radius="lg"
+                        >
+                            Sign In
+                        </Button>
+                    </Form>
+
+                    <div className="flex items-center my-4">
+                        <div className="flex-grow border-t border-white/5" />
+                        <span className="mx-4 text-xs text-slate-500 font-semibold uppercase">Or Login With</span>
+                        <div className="flex-grow border-t border-white/5" />
+                    </div>
+
+                    <Button
+                        variant="bordered"
+                        className="w-full border-white/10 hover:bg-white/5 hover:border-white/20 text-white font-semibold h-11"
+                        radius="lg"
+                        startContent={<FaGoogle className="text-pink-500" />}
+                    >
+                        Google Account
+                    </Button>
+
+                    <p className="text-center text-sm text-slate-400 mt-6">
+                        Don't have an account?{" "}
+                        <Link href="/register" className="text-pink-500 hover:text-pink-400 font-semibold hover:underline">
+                            Sign Up
+                        </Link>
+                    </p>
+                </CardBody>
+            </Card>
         </div>
+    );
+};
 
-        {/* Form */}
-        <form className="mt-6 space-y-4">
-
-          {/* Email */}
-          <div className="relative">
-            <Mail className="absolute left-3 top-3 text-slate-400" size={18} />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full h-12 bg-slate-950 border border-slate-800 rounded-lg pl-10 text-white focus:border-blue-500 outline-none"
-            />
-          </div>
-
-          {/* Password */}
-          <div className="relative">
-            <Lock className="absolute left-3 top-3 text-slate-400" size={18} />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full h-12 bg-slate-950 border border-slate-800 rounded-lg pl-10 text-white focus:border-blue-500 outline-none"
-            />
-          </div>
-
-          {/* Forgot */}
-          <div className="flex justify-end">
-            <span className="text-sm text-blue-400 cursor-pointer hover:underline">
-              Forgot password?
-            </span>
-          </div>
-
-          {/* Login Button */}
-          <button className="w-full h-12 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:scale-105 transition">
-            Login
-          </button>
-
-        </form>
-
-        {/* Divider */}
-        <div className="my-6 flex items-center gap-3">
-          <div className="h-px bg-slate-800 flex-1"></div>
-          <span className="text-slate-500 text-sm">OR</span>
-          <div className="h-px bg-slate-800 flex-1"></div>
-        </div>
-
-        {/* Google Login */}
-        <button className="w-full h-12 border border-slate-700 rounded-lg text-white flex items-center justify-center gap-2 hover:bg-slate-800 transition">
-
-          <Image
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            className="w-5 h-5"
-            width={25}
-            height={25}
-            alt="google"
-          />
-
-          Continue with Google
-        </button>
-
-        {/* Signup link */}
-        <p className="text-center text-slate-500 text-sm mt-6">
-          Don’t have an account?{" "}
-          <span className="text-blue-400 cursor-pointer hover:underline">
-            Sign up
-          </span>
-        </p>
-
-      </div>
-    </div>
-  );
-}
+export default LoginPage;

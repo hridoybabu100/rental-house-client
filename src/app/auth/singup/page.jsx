@@ -15,9 +15,9 @@ import { FaUser, FaEnvelope, FaLock, FaImage, FaGoogle } from "react-icons/fa";
 import Logo from "@/components/Logo";
 import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
-import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { uploadImage } from "@/utils/UploadImage";
+import { toast } from "react-toastify";
 
 
 export default function RegisterPage() {
@@ -47,6 +47,7 @@ export default function RegisterPage() {
     console.log(signUpData, signUpError);
     if (signUpData) {
       toast.success("Registration complete...");
+      redirect('/auth/singup')
     }
 
     if (signUpError) {
@@ -55,7 +56,7 @@ export default function RegisterPage() {
       redirect("/");
     }
   };
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <div>
@@ -146,7 +147,7 @@ export default function RegisterPage() {
                 {...register("role", { required: "Role is required" })}
                 className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
               >
-                <option value="attendee">User</option>
+                <option value="user">User</option>
                 <option value="organizer">Organizer</option>
               </select>
               {errors.role && (
@@ -183,7 +184,7 @@ export default function RegisterPage() {
           <p className="text-center text-sm text-slate-400 mt-6">
             Already have an account?{" "}
             <Link
-              href="/login"
+              href="/auth/login"
               className="text-pink-500 hover:text-pink-400 font-semibold hover:underline"
             >
               Log In
