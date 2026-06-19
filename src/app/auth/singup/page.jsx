@@ -47,7 +47,7 @@ export default function RegisterPage() {
     console.log(signUpData, signUpError);
     if (signUpData) {
       toast.success("Registration complete...");
-      redirect('/auth/singup')
+      redirect('/auth/login')
     }
 
     if (signUpError) {

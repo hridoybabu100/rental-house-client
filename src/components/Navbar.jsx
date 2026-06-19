@@ -33,6 +33,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     await authClient.signOut();
     router.push("/");
+    window.location.reload();
   };
   // console.log(session);
 
@@ -52,8 +53,8 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            href="/events"
-            className={`text-sm font-medium transition-colors ${pathname.startsWith("/events") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
+            href="/properties"
+            className={`text-sm font-medium transition-colors ${pathname.startsWith("/properties") ? "text-pink-500 font-semibold" : "text-slate-300 hover:text-white"}`}
           >
             All Properties
           </Link>

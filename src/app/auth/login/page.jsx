@@ -11,32 +11,25 @@ import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
-import { uploadImage } from "@/utils/UploadImage";
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    
-
     const onSubmit = async (data) => {
-
-        const imageFile = data.image[0];
-            const imageUrl = await uploadImage(imageFile);
 
         const { data: signInData, error: signInError } = await authClient.signIn.email({
             email: data.email,
             password: data.password,
-            image: imageUrl,
         })
 
-        console.log(signInData, signInError);
+        // console.log(signInData, signInError);
 
-        if (signInError) {
-            toast.error("Registration not succeed...")
+        if (signInData) {
+            toast.error("Login succeed...")
         }
-         if (signInData) {
-              toast.success("Login complete...");
-            }
+        if (signInError) {
+            toast.error("Login not succeed...")
+        }
         else {
             redirect("/")
         }
