@@ -6,7 +6,6 @@ export default function RootLayout({ children }) {
     <div>
       <Navbar></Navbar>
       <div className="flex-grow flex-col flex">{children}</div>
-      
         <Footer></Footer>
     </div>
   );

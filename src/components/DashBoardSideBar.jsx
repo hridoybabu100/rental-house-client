@@ -22,6 +22,7 @@ const DashboardSideBar = () => {
     { key: "add-property", label: "Add-Property", icon: CiCirclePlus, href: "/dashboard/organizer/add-property" },
     { key: "manage-property", label: "Manage Property", icon: FaCalendarAlt, href: "/dashboard/organizer/manage-property" },
     { key: "attendees", label: "Attendees", icon: FaUsers, href: "/dashboard/organizer/attendees" },
+     { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/organizer/profile" },
   ]
 
   const attendeeMenu = [
