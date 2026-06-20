@@ -19,7 +19,7 @@ const DashboardSideBar = () => {
     { key: "overview", label: "Overview", icon: FaUsers, href: "/dashboard/organizer" },
     { key: "organization", label: "Organization", icon: FaBuilding, href: "/dashboard/organizer/organizations" },
     // { key: "add-property", label: "Add Property", icon: FaPlus, href: "/dashboard/organizer/add-property" },
-    { key: "add-property", label: "Add-Property", icon: CiCirclePlus, href: "/dashboard/organizer/add-property" },
+    { key: "add-property", label: "Add-Organization", icon: CiCirclePlus, href: "/dashboard/organizer/add-property" },
     { key: "manage-property", label: "Manage Property", icon: FaCalendarAlt, href: "/dashboard/organizer/manage-property" },
     { key: "attendees", label: "Attendees", icon: FaUsers, href: "/dashboard/organizer/attendees" },
   ]
