@@ -17,18 +17,19 @@ const DashboardSideBar = () => {
 
   const orgnaizerMenu = [
     { key: "overview", label: "Overview", icon: FaUsers, href: "/dashboard/organizer" },
-    { key: "organization", label: "Organization", icon: FaBuilding, href: "/dashboard/organizer/organization" },
-    { key: "add-event", label: "Add Event", icon: FaPlus, href: "/dashboard/organizer/add-event" },
-    { key: "manage-events", label: "Manage Events", icon: FaCalendarAlt, href: "/dashboard/organizer/manage-events" },
+    { key: "organization", label: "Organization", icon: FaBuilding, href: "/dashboard/organizer/organizations" },
+    // { key: "add-property", label: "Add Property", icon: FaPlus, href: "/dashboard/organizer/add-property" },
+    { key: "add-property", label: "Add-Property", icon: CiCirclePlus, href: "/dashboard/organizer/add-property" },
+    { key: "manage-property", label: "Manage Property", icon: FaCalendarAlt, href: "/dashboard/organizer/manage-property" },
     { key: "attendees", label: "Attendees", icon: FaUsers, href: "/dashboard/organizer/attendees" },
   ]
 
   const attendeeMenu = [
     { key: "overview", label: "Overview", icon: FaUserCircle, href: "/dashboard/organizer" },
-    { key: "property", label: "My Properties", icon: LuTableProperties, href: "/dashboard/property" },
-    { key: "payments", label: "Payments", icon: FaHistory, href: "/dashboard/attendee/payments" },
-    { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/profile" },
-    { key: "add-property", label: "Add-Property", icon: CiCirclePlus, href: "/dashboard/add-property" },
+    { key: "property", label: "My Properties", icon: LuTableProperties, href: "/dashboard/organizer/organizations" },
+    { key: "payments", label: "Payments", icon: FaHistory, href: "/dashboard//payments" },
+    { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/organizer/profile" },
+    
   ]
 
   const adminMenu = [
