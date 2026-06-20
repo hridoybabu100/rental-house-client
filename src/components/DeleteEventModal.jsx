@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 
-const DeleteEventModal = ({ isDeleteOpen, setIsDeleteOpen, id }) => {
+const DeleteEventModal = ({ IsDeleteOpen,setIsDeleteOpen,id }) => {
     const router = useRouter();
     const handleDeleteEvent = async () => {
         const res = await deleteEvent(id);
@@ -15,7 +15,7 @@ const DeleteEventModal = ({ isDeleteOpen, setIsDeleteOpen, id }) => {
         }
     }
     return (
-        <Modal isOpen={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <Modal isOpen={IsDeleteOpen} onOpenChange={setIsDeleteOpen}>
             <Modal.Backdrop>
                 <Modal.Container>
                     <Modal.Dialog className="dark text-white bg-slate-950 border border-white/10 p-6 rounded-2xl w-full max-w-md mx-auto">

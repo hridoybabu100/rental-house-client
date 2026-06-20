@@ -1,7 +1,11 @@
+'use client'
 import { updateEvent } from "@/lib/api/events/actions";
+import { uploadImage } from "@/utils/UploadImage";
 import { Button, Form, Input, Label, Modal, TextArea } from "@heroui/react";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { FaImage } from "react-icons/fa";
+import { toast } from "react-toastify";
 const CATEGORIES = [
     "Music",
     "Tech",
@@ -47,7 +51,7 @@ const EditEventModal = ({ isModalOpen, setIsModalOpen, editingEvent }) => {
 
         if (result.modifiedCount) {
             toast.success("Event Updated successfully...")
-            redirect("/events")
+            redirect("/dashboard/organizer")
         }
 
 
