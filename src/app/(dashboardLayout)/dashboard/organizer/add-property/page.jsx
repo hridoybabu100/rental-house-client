@@ -1,163 +1,336 @@
 "use client";
+
 import DashboardHeading from "@/components/DashboardHeading";
-import { addOrganization, updateOrg } from "@/lib/api/organizations/action";
-import { myOrganization } from "@/lib/api/organizations/data";
+import { addEvent } from "@/lib/api/events/actions";
 import { useSession } from "@/lib/auth-client";
 import { uploadImage } from "@/utils/UploadImage";
-import { Button, Card, CardHeader, Form, Input, TextArea } from "@heroui/react";
-import { useEffect, useState } from "react";
+import {
+    Button,
+    Card,
+    CardHeader,
+    Input,
+    ListBox,
+    ListBoxItem,
+    SelectIndicator,
+    SelectPopover,
+    SelectTrigger,
+    SelectValue,
+    TextArea,
+    Select,
+    Form,
+    Label,
+} from "@heroui/react";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { FaImage } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-const Organization = () => {
-  const { data: session } = useSession();
-  const [myOrg, setMyOrg] = useState(null);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+const AddEventPage = () => {
+    const { data: session } = useSession();
 
-  useEffect(() => {
-    const setOrgData = async () => {
-      const org = await myOrganization(session.user.email);
-      setMyOrg(org);
+    const CATEGORIES = [
+        "Music",
+        "Tech",
+        "Sports",
+        "Arts",
+        "Business",
+        "Food",
+        "Other",
+    ];
+
+    const LOCATIONS = [
+        "New York",
+        "San Francisco",
+        "London",
+        "Dhaka",
+        "Tokyo",
+        "Berlin",
+        "Online",
+    ];
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+
+    const onSubmit = async (data) => {
+        const imageFile = data.banner[0];
+        const imageUrl = await uploadImage(imageFile)
+        // console.log(data?.banner, "data.banner");
+
+        delete data?.banner;
+        const updateData = {
+            ...data,
+            banner: imageUrl,
+            organizationEmail: session.user.email
+        }
+
+        const result = await addEvent(updateData)
+        // console.log(result);
+
+        if (result.insertedId) {
+            toast.success("Event added successfully...")
+            redirect("/events")
+        } else {
+            toast.error(result.message || "Event not created...")
+        }
+
+
     };
-    setOrgData();
-  }, [session]);
-  // console.log(myOrg);
 
-  // console.log(myOrg);
+    return (
+        <div>
+            <DashboardHeading
+                title="Add Event"
+                description="Add new event"
+            />
 
-  const onOrganizationSubmit = async (data) => {
-    // Upload image to imgbb
-    const imageFile = data.logo[0];
-    const imageUrl = await uploadImage(imageFile);
-
-    const orgData = {
-      organizationName: data.organizationName,
-      logo: imageUrl,
-      website: data.website,
-      description: data.description,
-      organizerEmail: session.user.email,
-    };
-
-    // console.log('The organization data', orgData);
-    
-    if (!myOrg) {
-      const resData = await addOrganization(orgData);
-      if (resData.insertedId) {
-        toast.success("Owner Profile added");
-      }
-    } else {
-      const updatedRes = await updateOrg(orgData, myOrg._id);
-      if (updatedRes.modifiedCount > 0) {
-        toast.success("Owner Profile updated");
-      }
-    }
-  };
-  return (
-    <div>
-      <DashboardHeading
-        title="My organization Profile"
-        description=" Update organization logo, profile, website and description"
-      />
-      <div className="mt-6 space-y-6 max-w-3xl">
-        <Card
-          className="border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl rounded-2xl"
-          radius="lg"
-        >
-          <CardHeader className="flex flex-col gap-1 pb-4 border-b border-white/5 p-6">
-            <h3 className="text-xl font-bold text-white">
-              Organization Details
-            </h3>
-            <p className="text-slate-400 text-xs">
-              Review and edit your organization credentials.
-            </p>
-          </CardHeader>
-          <div className="p-6">
-            <Form
-              onSubmit={handleSubmit(onOrganizationSubmit)}
-              className="space-y-4 w-full"
-            >
-              <Input
-                defaultValue={myOrg?.organizationName}
-                {...register("organizationName", {
-                  required: "Organization name is Required",
-                })}
-                id="organizationName"
-                label="Organization Name"
-                labelPlacement="outside"
-                placeholder="TechEvents Corp"
-                required
-                className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-              />
-              {errors.name && (
-                <p className="text-red-500">{errors.name.message}</p>
-              )}
-              <Input
-                {...register("logo", { required: "Logo is Required" })}
-                type="file"
-                accept="image/*"
-                id="logo"
-                placeholder="https://example.com/avatar.jpg"
-                labelPlacement="outside"
-                startContent={<FaImage className="text-slate-400 text-sm" />}
-                className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-              />
-              {errors.logo && (
-                <p className="text-red-500">{errors.logo.message}</p>
-              )}
-
-              <Input
-                defaultValue={myOrg?.website}
-                {...register("website", {
-                  required: "Organization Website is Required",
-                })}
-                id="website"
-                label="Organization Website"
-                labelPlacement="outside"
-                placeholder="techevents.corp"
-                required
-                className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
-              />
-
-              {errors.website && (
-                <p className="text-red-500">{errors.website.message}</p>
-              )}
-
-              <TextArea
-                defaultValue={myOrg?.description}
-                {...register("description", {
-                  required: "Description is Required",
-                })}
-                id="description"
-                label="Description"
-                labelPlacement="outside"
-                placeholder="Hosting global developer conferences and software hacking marathons."
-                required
-                className="w-full bg-slate-900/50 border border-white/10 rounded-xl focus:outline-none min-h-[100px] text-white text-sm"
-              />
-              {errors.description && (
-                <p className="text-red-500">{errors.description.message}</p>
-              )}
-
-              <div className="flex gap-4">
-                <Button
-                  type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold h-11 px-6 shadow-lg"
-                  radius="lg"
+            <div className="mt-6 max-w-3xl">
+                <Card
+                    className="border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl rounded-2xl"
+                    radius="lg"
                 >
-                  Save Changes
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </Card>
-      </div>
-    </div>
-  );
+                    <CardHeader className="flex flex-col gap-1 pb-4 border-b border-white/5 p-6">
+                        <h3 className="text-xl font-bold text-white">
+                            Host a New Event
+                        </h3>
+                        <p className="text-slate-400 text-xs">
+                            Fill out the detailed event information. Banners and dates are
+                            required.
+                        </p>
+                    </CardHeader>
+
+                    <div className="p-6">
+                        <Form
+                            onSubmit={handleSubmit(onSubmit)}
+                            className="space-y-4 w-full"
+                        >
+                            {/* Title + Banner */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                <div className="w-full">
+                                    <Label htmlFor="title">
+                                        Title
+                                    </Label>
+                                    <Input
+                                        label="Event Title"
+                                        className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
+                                        labelPlacement="outside"
+                                        placeholder="e.g. Rock Fest 2026"
+                                        {...register("title", {
+                                            required: "Event title is required",
+                                        })}
+                                    />
+                                    {errors.title && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.title.message}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="w-full">
+                                    <Label htmlFor="image">
+                                        Image
+                                    </Label>
+                                    <Input
+                                        {...register("banner", { required: "Banner is Required" })}
+                                        type="file"
+                                        accept="image/*"
+                                        id="logo"
+                                        placeholder="https://example.com/avatar.jpg"
+                                        labelPlacement="outside"
+                                        startContent={<FaImage className="text-slate-400 text-sm" />}
+                                        className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
+                                    />
+                                    {
+                                        errors.banner && <p className="text-red-500">{errors.banner.message}</p>
+                                    }
+                                    {errors.banner && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.banner.message}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Category + Location */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                <div className="w-full">
+                                    <Label htmlFor="category">
+                                        Category
+                                    </Label>
+                                    <select
+                                        id="category"
+                                        {...register("category", { required: "Category is required" })} className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3">
+                                        {
+                                            CATEGORIES.map(cat => <option key={cat} value={cat}>
+                                                {cat}
+                                            </option>)
+                                        }
+                                    </select>
+
+                                    <input
+                                        type="hidden"
+                                        {...register("category", {
+                                            required: "Category is required",
+                                        })}
+                                    />
+
+                                    {errors.category && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.category.message}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="w-full">
+                                    <Label htmlFor="location">
+                                        Location
+                                    </Label>
+                                    <select
+                                        id="location"
+                                        {...register("location", { required: "Location is required" })} className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3">
+                                        {
+                                            LOCATIONS.map(loc => <option key={loc} value={loc}>
+                                                {loc}
+                                            </option>)
+                                        }
+                                    </select>
+
+
+                                    <input
+                                        type="hidden"
+                                        {...register("location", {
+                                            required: "Location is required",
+                                        })}
+                                    />
+
+                                    {errors.location && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.location.message}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Date + Price + Capacity */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                                <div>
+                                    <Label htmlFor="date">
+                                        Date
+                                    </Label>
+                                    <Input
+                                        className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
+                                        type="date"
+                                        label="Date"
+                                        labelPlacement="outside"
+                                        {...register("date", {
+                                            required: "Date is required",
+                                        })}
+                                    />
+
+                                    {errors.date && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.date.message}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="price">
+                                        Price
+                                    </Label>
+                                    <Input
+                                        className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
+                                        type="number"
+                                        label="Ticket Price ($)"
+                                        labelPlacement="outside"
+                                        placeholder="0.00"
+                                        {...register("price", {
+                                            required: "Price is required",
+                                            valueAsNumber: true,
+                                            min: {
+                                                value: 0,
+                                                message: "Price cannot be negative",
+                                            },
+                                        })}
+                                    />
+
+                                    {errors.price && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.price.message}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="capacity">
+                                        Capacity
+                                    </Label>
+                                    <Input
+                                        type="number"
+                                        label="Available Capacity"
+                                        labelPlacement="outside"
+                                        placeholder="100"
+                                        {...register("capacity", {
+                                            required: "Capacity is required",
+                                            valueAsNumber: true,
+                                            min: {
+                                                value: 1,
+                                                message: "Capacity must be at least 1",
+                                            },
+                                        })}
+                                    />
+
+                                    {errors.capacity && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.capacity.message}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Description */}
+                            <div className="w-full">
+                                <Label htmlFor="description">
+                                    Description
+                                </Label>
+                                <TextArea
+                                    className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
+                                    label="Detailed Description"
+                                    labelPlacement="outside"
+                                    placeholder="Outline the detailed schedule, speaker list, and amenities..."
+                                    {...register("description", {
+                                        required: "Description is required",
+                                        minLength: {
+                                            value: 20,
+                                            message:
+                                                "Description must be at least 20 characters long",
+                                        },
+                                    })}
+                                />
+
+                                {errors.description && (
+                                    <p className="text-red-500 text-xs mt-1">
+                                        {errors.description.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <Button
+                                type="submit"
+                                className="bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-11 px-6 shadow-lg shadow-pink-500/10"
+                                radius="lg"
+                            >
+                                Host Property Now
+                            </Button>
+                        </Form>
+                    </div>
+                </Card>
+            </div>
+        </div>
+    );
 };
 
-export default Organization;
+export default AddEventPage;
