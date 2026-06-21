@@ -26,10 +26,10 @@ const DashboardSideBar = () => {
   ]
 
   const attendeeMenu = [
-    { key: "overview", label: "Overview", icon: FaUserCircle, href: "/dashboard/organizer" },
-    { key: "property", label: "My Properties", icon: LuTableProperties, href: "/dashboard/organizer/organizations" },
+    { key: "overview", label: "Overview", icon: FaUserCircle, href: "/dashboard" },
+    { key: "property", label: "My Properties", icon: LuTableProperties, href: "/dashboard/" },
     { key: "payments", label: "Payments", icon: FaHistory, href: "/dashboard//payments" },
-    { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/organizer/profile" },
+    { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/" },
     
   ]
 

@@ -11,12 +11,12 @@ import {
 
 export default function Banner() {
   const images = [
-    "/banner1.jpg",
-    "/banner2.jpg",
-    "/banner3.jpg",
-    "/banner4.jpg",
-    "/banner5.jpg",
-    "/banner6.jpg",
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1757359056339-22968344cce6?q=80&w=1329&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1679364297777-1db77b6199be?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGx1eHVyeSUyMGhvbWUlMjBleHRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+    "https://media.istockphoto.com/id/590062066/photo/american-house-exterior-with-double-garage-and-well-kept-lawn.webp?a=1&b=1&s=612x612&w=0&k=20&c=8b-U8urLy_dyV4xXwlWWeoQ4PtM_t5y7s2CwlxPd30g=",
+    "https://media.istockphoto.com/id/2239179571/photo/luxury-villa-house-exterior-and-swimming-pool.webp?a=1&b=1&s=612x612&w=0&k=20&c=tBkTFLETRv11489s7SHWjM5pQCMzQFpZ5liiRdvKn7U=",
+   
   ];
 
   const [index, setIndex] = useState(0);

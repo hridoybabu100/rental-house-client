@@ -1,5 +1,5 @@
 import Banner from "@/components/Banner";
-import FeaturedProperties from "@/components/FeaturedPropertics";
+import FeaturedEvents from "@/components/FeaturedEvents";
 import HowItWorks from "@/components/HowIt";
 import LiveStats from "@/components/LiveStats";
 import PopularCities from "@/components/PopulerCities";
@@ -12,7 +12,8 @@ export default function Home() {
   return (
     <div>
       <Banner></Banner>
-      <FeaturedProperties></FeaturedProperties>
+      {/* <FeaturedProperties></FeaturedProperties> */}
+      {/* <FeaturedEvents></FeaturedEvents> */}
       <WhyChooseUs></WhyChooseUs>
       <PopularCities></PopularCities>
       <RecentlyAdded></RecentlyAdded>

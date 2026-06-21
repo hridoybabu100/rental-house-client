@@ -25,7 +25,7 @@ const LoginPage = () => {
         // console.log(signInData, signInError);
 
         if (signInData) {
-            toast.error("Login succeed...")
+            toast.success("Login succeed...")
         }
         if (signInError) {
             toast.error("Login not succeed...")
