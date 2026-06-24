@@ -13,7 +13,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
-  // const data = session?.user
+  const data = session?.user
   // console.log('The user is a', data);
   
 

@@ -5,14 +5,13 @@ import EventCard from "@/components/EventCard";
 import { fetchEvents } from "@/lib/api/events/data";
 import FilterPanel from "@/components/FilterPanel";
 
-// ?search=mern&category=music
 export default async function BrowseEventsPage({ searchParams }) {
     const sParams = await searchParams;
-    // console.log(sParams);
     const search = sParams.search || "";
     const category = sParams.category || "";
     const location = sParams.location || "";
-    // console.log(search, category, location);
+
+    
     const params = new URLSearchParams();
     if (search) {
         params.set("search", search);

@@ -9,13 +9,11 @@ export default function BookingWidget({ ticketPrice, availableSeats, eventId, ev
   const [quantity, setQuantity] = useState(0)
 
   const { data: session } = useSession();
-
   const user = session?.user;
   // console.log(user);
 
 
   const isSoldOut = availableSeats <= 0;
-
   const totalAmount = ticketPrice.toFixed(2) * quantity;
 
   const handleBookTicket = async () => {
@@ -104,7 +102,7 @@ export default function BookingWidget({ ticketPrice, availableSeats, eventId, ev
               }`}
             radius="lg"
           >
-            {isSoldOut ? "Sold Out" : "Book Ticket Now"}
+            {isSoldOut ? "Sold Out" : "Booked House Now"}
           </Button>
 
           <div className="flex items-center gap-2 text-[11px] text-slate-400 text-center justify-center pt-2">
