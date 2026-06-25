@@ -40,4 +40,15 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_SECRET_ID,
         }, 
     },
+
+    //json web tokeen
+
+      session: {
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      maxAge: 60 * 24 * 60,
+    },
+  },
+  plugins: [jwt()],
 });
