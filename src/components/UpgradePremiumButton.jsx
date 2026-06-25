@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@heroui/react";
-
 const UpgradePremiumButton = () => {
     const updateToPremium = async () => {
         const res = await fetch("/api/checkout_sessions", {

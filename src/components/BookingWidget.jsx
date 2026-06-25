@@ -38,9 +38,6 @@ export default function BookingWidget({ ticketPrice, availableSeats, eventId, ev
     if (data?.url) {
       window.location.href = data.url;
     }
-
-
-
   }
 
 

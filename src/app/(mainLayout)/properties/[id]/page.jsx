@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-    Card,
     Button
 } from "@heroui/react";
 import Image from "next/image";

@@ -5,6 +5,7 @@ import EventCard from "./EventCard";
 import { fetchFeaturedEvents } from "@/lib/api/events/data";
 
 
+
 export default async function FeaturedEvents() {
   const featuredEvents = await fetchFeaturedEvents()
   const events = featuredEvents && featuredEvents.length > 0 ? featuredEvents : MOCK_EVENTS;
