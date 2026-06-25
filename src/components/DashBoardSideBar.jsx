@@ -38,7 +38,7 @@ const DashboardSideBar = () => {
     { key: "admin", label: "Overview", icon: FaUserShield, href: "/dashboard/admin" },
     { key: "users", label: "Users", icon: FaUserShield, href: "/dashboard/admin/users" },
     { key: "property", label: "All Property", icon: FaCalendarAlt, href: "/dashboard/admin/property" },
-    { key: "transactions", label: "Transaction Logs", icon: FaHistory, href: "/dashboard/admin/transactions" },
+    { key: "transactions", label: "Transaction", icon: FaHistory, href: "/dashboard/admin/transactions" },
     { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/admin/profile" },
   ]
 

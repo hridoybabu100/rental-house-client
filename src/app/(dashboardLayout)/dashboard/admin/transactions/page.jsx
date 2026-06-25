@@ -22,23 +22,42 @@ export default function AdminTransactionsPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [methodFilter, setMethodFilter] = useState("all");
 
+  const [summary, setSummary] = useState({
+    totalTransactions: 0,
+    totalRevenue: 0,
+    paidTransactions: 0,
+    pendingTransactions: 0,
+  });
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
         setLoading(true);
 
-    
-        const res = await fetch("/api/admin/transactions", {
-          cache: "no-store",
-        });
+        const params = new URLSearchParams();
+        if (searchText) params.append("search", searchText);
+        if (statusFilter !== "all") params.append("status", statusFilter);
+        if (methodFilter !== "all") params.append("method", methodFilter);
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/admin/transactions?${params.toString()}`,
+          {
+            cache: "no-store",
+          }
+        );
 
         const data = await res.json();
 
-        if (Array.isArray(data?.transactions)) {
-          setTransactions(data.transactions);
-        }
-        else if (Array.isArray(data)) {
-          setTransactions(data);
+        if (data?.success) {
+          setTransactions(data.transactions || []);
+          setSummary(
+            data.summary || {
+              totalTransactions: 0,
+              totalRevenue: 0,
+              paidTransactions: 0,
+              pendingTransactions: 0,
+            }
+          );
         } else {
           setTransactions([]);
         }
@@ -51,56 +70,12 @@ export default function AdminTransactionsPage() {
     };
 
     fetchTransactions();
-  }, []);
+  }, [searchText, statusFilter, methodFilter]);
 
-  // =========================
-  // FILTERED DATA
-  // =========================
   const filteredTransactions = useMemo(() => {
-    return transactions.filter((item) => {
-      const searchValue = searchText.toLowerCase();
+    return transactions;
+  }, [transactions]);
 
-      const matchesSearch =
-        item?.transactionId?.toLowerCase().includes(searchValue) ||
-        item?.buyerName?.toLowerCase().includes(searchValue) ||
-        item?.buyerEmail?.toLowerCase().includes(searchValue) ||
-        item?.propertyTitle?.toLowerCase().includes(searchValue);
-
-      const matchesStatus =
-        statusFilter === "all"
-          ? true
-          : item?.status?.toLowerCase() === statusFilter.toLowerCase();
-
-      const matchesMethod =
-        methodFilter === "all"
-          ? true
-          : item?.paymentMethod?.toLowerCase() === methodFilter.toLowerCase();
-
-      return matchesSearch && matchesStatus && matchesMethod;
-    });
-  }, [transactions, searchText, statusFilter, methodFilter]);
-
-  // =========================
-  // SUMMARY DATA
-  // =========================
-  const totalTransactions = transactions.length;
-
-  const totalRevenue = transactions.reduce(
-    (sum, item) => sum + Number(item?.amount || 0),
-    0
-  );
-
-  const paidTransactions = transactions.filter(
-    (item) => item?.status?.toLowerCase() === "paid"
-  ).length;
-
-  const pendingTransactions = transactions.filter(
-    (item) => item?.status?.toLowerCase() === "pending"
-  ).length;
-
-  // =========================
-  // HELPERS
-  // =========================
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-BD", {
       style: "currency",
@@ -151,7 +126,7 @@ export default function AdminTransactionsPage() {
   return (
     <section className="min-h-screen bg-[#050816] text-white px-4 md:px-6 py-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <p className="text-cyan-400 uppercase tracking-[0.25em] text-xs md:text-sm font-semibold">
@@ -165,46 +140,39 @@ export default function AdminTransactionsPage() {
               history in one place.
             </p>
           </div>
-
-          <div className="flex items-center gap-3">
-            <button className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium shadow-lg shadow-cyan-500/20 hover:scale-[1.02] transition">
-              Export Report
-            </button>
-          </div>
         </div>
 
-        {/* ================= SUMMARY CARDS ================= */}
+        {/* SUMMARY CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <SummaryCard
             title="Total Transactions"
-            value={totalTransactions}
+            value={summary.totalTransactions}
             icon={<CreditCard size={20} />}
             glow="from-cyan-500/20 to-blue-500/10"
           />
           <SummaryCard
             title="Total Revenue"
-            value={formatCurrency(totalRevenue)}
+            value={formatCurrency(summary.totalRevenue)}
             icon={<CircleDollarSign size={20} />}
             glow="from-emerald-500/20 to-green-500/10"
           />
           <SummaryCard
             title="Paid Payments"
-            value={paidTransactions}
+            value={summary.paidTransactions}
             icon={<BadgeDollarSign size={20} />}
             glow="from-violet-500/20 to-fuchsia-500/10"
           />
           <SummaryCard
             title="Pending Payments"
-            value={pendingTransactions}
+            value={summary.pendingTransactions}
             icon={<Wallet size={20} />}
             glow="from-amber-500/20 to-orange-500/10"
           />
         </div>
 
-        {/* ================= FILTER BAR ================= */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 md:p-5 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+        {/* FILTER BAR */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 md:p-5">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            {/* Search */}
             <div className="lg:col-span-6">
               <label className="text-sm text-slate-300 mb-2 block">
                 Search transaction
@@ -224,7 +192,6 @@ export default function AdminTransactionsPage() {
               </div>
             </div>
 
-            {/* Status */}
             <div className="lg:col-span-3">
               <label className="text-sm text-slate-300 mb-2 block">
                 Filter by status
@@ -242,7 +209,6 @@ export default function AdminTransactionsPage() {
               </select>
             </div>
 
-            {/* Payment Method */}
             <div className="lg:col-span-3">
               <label className="text-sm text-slate-300 mb-2 block">
                 Payment method
@@ -262,8 +228,8 @@ export default function AdminTransactionsPage() {
           </div>
         </div>
 
-        {/* ================= TABLE ================= */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+        {/* TABLE */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
           <div className="flex items-center justify-between px-5 md:px-6 py-5 border-b border-white/10">
             <div>
               <h2 className="text-lg md:text-xl font-semibold">
@@ -276,27 +242,15 @@ export default function AdminTransactionsPage() {
           </div>
 
           {loading ? (
-            <div className="p-10">
-              <div className="space-y-4">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-16 rounded-2xl bg-white/5 animate-pulse"
-                  />
-                ))}
-              </div>
+            <div className="p-10 text-center text-slate-400">
+              Loading transactions...
             </div>
           ) : filteredTransactions.length === 0 ? (
             <div className="py-20 text-center">
-              <div className="max-w-md mx-auto">
-                <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mx-auto mb-4">
-                  <CreditCard size={28} />
-                </div>
-                <h3 className="text-xl font-semibold">No transactions found</h3>
-                <p className="text-slate-400 mt-2">
-                  Try changing the search keyword or filter options.
-                </p>
-              </div>
+              <h3 className="text-xl font-semibold">No transactions found</h3>
+              <p className="text-slate-400 mt-2">
+                Try changing the search keyword or filter options.
+              </p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -322,7 +276,6 @@ export default function AdminTransactionsPage() {
                       key={item._id || item.transactionId}
                       className="border-t border-white/10 hover:bg-white/[0.03] transition"
                     >
-                      {/* Transaction ID */}
                       <td className="px-6 py-5">
                         <div className="space-y-1">
                           <p className="font-semibold text-white">
@@ -334,7 +287,6 @@ export default function AdminTransactionsPage() {
                         </div>
                       </td>
 
-                      {/* Buyer */}
                       <td className="px-6 py-5">
                         <div className="space-y-1">
                           <p className="font-medium text-white">
@@ -346,7 +298,6 @@ export default function AdminTransactionsPage() {
                         </div>
                       </td>
 
-                      {/* Property */}
                       <td className="px-6 py-5">
                         <div className="max-w-[260px]">
                           <p className="font-medium text-white line-clamp-1">
@@ -358,14 +309,12 @@ export default function AdminTransactionsPage() {
                         </div>
                       </td>
 
-                      {/* Amount */}
                       <td className="px-6 py-5">
                         <p className="font-semibold text-emerald-400">
                           {formatCurrency(item?.amount)}
                         </p>
                       </td>
 
-                      {/* Method */}
                       <td className="px-6 py-5">
                         <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-slate-200 capitalize">
                           <Wallet size={14} />
@@ -373,12 +322,10 @@ export default function AdminTransactionsPage() {
                         </span>
                       </td>
 
-                      {/* Date */}
                       <td className="px-6 py-5 text-slate-300">
                         {formatDate(item?.paidAt || item?.createdAt)}
                       </td>
 
-                      {/* Status */}
                       <td className="px-6 py-5">
                         <span
                           className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium capitalize ${getStatusStyle(
@@ -390,7 +337,6 @@ export default function AdminTransactionsPage() {
                         </span>
                       </td>
 
-                      {/* Action */}
                       <td className="px-6 py-5">
                         <div className="flex items-center justify-center gap-2">
                           <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20 transition">
@@ -411,14 +357,9 @@ export default function AdminTransactionsPage() {
   );
 }
 
-/* =========================
-   SUMMARY CARD COMPONENT
-========================= */
 function SummaryCard({ title, value, icon, glow }) {
   return (
-    <div
-      className={`relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)]`}
-    >
+    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-5">
       <div
         className={`absolute inset-0 bg-gradient-to-br ${glow} opacity-70 pointer-events-none`}
       />
