@@ -14,7 +14,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop",
     description:
       "A premium technology conference featuring software engineers, startup founders, and AI innovators from across Bangladesh.",
-    ticketPrice: 1200,
+    price: 1200,
     totalSeats: 300,
     availableSeats: 124,
     featured: true,
@@ -36,7 +36,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=1200&auto=format&fit=crop",
     description:
       "An electrifying live music night with top bands, solo artists, lights, crowd energy, and a festival vibe.",
-    ticketPrice: 1500,
+    price: 1500,
     totalSeats: 500,
     availableSeats: 210,
     featured: true,
@@ -58,7 +58,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1515169067868-5387ec356754?q=80&w=1200&auto=format&fit=crop",
     description:
       "Meet startup founders, investors, product managers, and creative professionals in a premium networking environment.",
-    ticketPrice: 800,
+    price: 800,
     totalSeats: 180,
     availableSeats: 64,
     featured: true,
@@ -80,7 +80,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
     description:
       "A hands-on design workshop on branding, UI inspiration, visual storytelling, and creative portfolio building.",
-    ticketPrice: 950,
+    price: 950,
     totalSeats: 100,
     availableSeats: 37,
     featured: true,
@@ -102,7 +102,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop",
     description:
       "Explore street food, premium cuisine, dessert stalls, live cooking shows, and a full family-friendly carnival atmosphere.",
-    ticketPrice: 500,
+    price: 500,
     totalSeats: 600,
     availableSeats: 312,
     featured: false,
@@ -124,7 +124,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop",
     description:
       "A deep discussion on AI tools, remote jobs, automation, productivity, and the changing future of professional work.",
-    ticketPrice: 1000,
+    price: 1000,
     totalSeats: 220,
     availableSeats: 89,
     featured: true,
@@ -146,7 +146,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop",
     description:
       "Capture the beauty of the city, join live photo walks, and explore a curated exhibition by emerging photographers.",
-    ticketPrice: 650,
+    price: 650,
     totalSeats: 140,
     availableSeats: 58,
     featured: false,
@@ -168,7 +168,7 @@ export const MOCK_EVENTS = [
     image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
     description:
       "An action-packed gaming competition with esports teams, live audience, game booths, and exciting prize pools.",
-    ticketPrice: 1300,
+    price: 1300,
     totalSeats: 400,
     availableSeats: 172,
     featured: true,

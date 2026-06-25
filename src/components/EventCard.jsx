@@ -37,7 +37,7 @@ export default function EventCard({ event }) {
       </div>
       <div className="px-6 pb-6 pt-3 flex justify-between items-center border-t-2 border-white/5 mt-auto">
         <span className="text-pink-400 font-extrabold text-lg">
-          {currentEvent.price === 0 ? "Free" : `$${currentEvent.price.toFixed(2)}`}
+          {currentEvent.price === 0 ? "Free" : `$${currentEvent?.price?.toFixed(2)}`}
         </span>
         <Link href={`/properties/${currentEvent._id}`}>
           <Button

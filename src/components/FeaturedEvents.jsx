@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 import EventCard from "./EventCard";
 import { fetchFeaturedEvents } from "@/lib/api/events/data";
+import { MOCK_EVENTS } from "@/data.mocksEvents";
 
 
 

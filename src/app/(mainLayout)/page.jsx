@@ -13,7 +13,7 @@ export default function Home() {
     <div>
       <Banner></Banner>
       {/* <FeaturedProperties></FeaturedProperties> */}
-      {/* <FeaturedEvents></FeaturedEvents> */}
+      <FeaturedEvents></FeaturedEvents>
       <WhyChooseUs></WhyChooseUs>
       <PopularCities></PopularCities>
       <RecentlyAdded></RecentlyAdded>
