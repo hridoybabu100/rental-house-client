@@ -85,7 +85,7 @@ export default async function PaymentSuccess({ searchParams }) {
                                 View My Tickets
                             </Button>
                         </Link>
-                        <Link href="/events">
+                        <Link href="/all-properties">
                             <Button
                                 href="/events"
                                 variant="bordered"

@@ -21,16 +21,16 @@ const DashboardSideBar = () => {
     // { key: "add-property", label: "Add Property", icon: FaPlus, href: "/dashboard/organizer/add-property" },
     { key: "add-property", label: "Add-Property", icon: CiCirclePlus, href: "/dashboard/organizer/add-property" },
     { key: "manage-property", label: "Manage Property", icon: FaCalendarAlt, href: "/dashboard/organizer/manage-property" },
-    { key: "attendees", label: "Attendees", icon: FaUsers, href: "/dashboard/organizer/attendees" },
+    // { key: "attendees", label: "Attendees", icon: FaUsers, href: "/dashboard/organizer/attendees" },
      { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/organizer/profile" },
   ]
 
   const attendeeMenu = [
     { key: "overview", label: "Overview", icon: FaUserCircle, href: "/dashboard/attendee" },
     // { key: "attendee", label: "Attendee", icon: LuTableProperties, href: "/dashboard/attendee" },
-    { key: "payments", label: "Payments", icon: FaHistory, href: "/dashboard/payments" },
-    { key: "tickets", label: "Tickets", icon: FaHistory, href: "/dashboard/tickets" },
-    { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/profile" },
+    { key: "payments", label: "Payments", icon: FaHistory, href: "/dashboard/attendee/payments" },
+    { key: "tickets", label: "Tickets", icon: FaHistory, href: "/dashboard/attendee/tickets" },
+    { key: "profile", label: "Profile", icon: CgProfile, href: "/dashboard/attendee/profile" },
     
   ]
 
