@@ -3,7 +3,6 @@ import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 import EventCard from "./EventCard";
 import { fetchFeaturedEvents } from "@/lib/api/events/data";
-import { MOCK_EVENTS } from "@/data.mocksEvents";
 
 
 
@@ -17,8 +16,8 @@ export default async function FeaturedEvents() {
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">Featured Events</h2>
           <p className="text-slate-400 text-sm mt-2">Explore the hottest and most popular events happening this week.</p>
         </div>
-        <Link href="/events" className="text-pink-500 hover:text-pink-400 font-semibold p-0 flex items-center gap-2 transition-colors">
-          View All Events <FaChevronRight size={12} />
+        <Link href="/properties" className="text-pink-500 hover:text-pink-400 font-semibold p-0 flex items-center gap-2 transition-colors">
+          View All Properties <FaChevronRight size={12} />
         </Link>
       </div>
 
