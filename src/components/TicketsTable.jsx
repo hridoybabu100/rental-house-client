@@ -12,7 +12,7 @@ import {
 } from "@heroui/react";
 
 const TicketsTable = ({ tickets }) => {
-  // console.log(tickets);
+  console.log(tickets);
 
   return (
     <Card className="border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl p-6 rounded-2xl">

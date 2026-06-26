@@ -2,7 +2,7 @@ import { baseURL } from '@/lib/api/baseUrl';
 import { stripe } from '@/lib/stripe';
 import { Button, Card, CardFooter, CardHeader } from '@heroui/react';
 import Link from 'next/link';
-import { FaArrowRight, FaCheckCircle, FaCrown } from 'react-icons/fa';
+import { FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 export default async function PaymentSuccess({ searchParams }) {
     const { session_id } = await searchParams
     // console.log(session_id);
@@ -87,7 +87,7 @@ export default async function PaymentSuccess({ searchParams }) {
                         </Link>
                         <Link href="/all-properties">
                             <Button
-                                href="/events"
+                                href="/"
                                 variant="bordered"
                                 className="w-full sm:w-auto border-white/10 hover:bg-white/5 text-white font-semibold h-11 px-6"
                                 radius="lg"
