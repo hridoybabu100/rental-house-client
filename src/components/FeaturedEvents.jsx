@@ -2,13 +2,17 @@
 import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 import EventCard from "./EventCard";
+// import { fetchFeaturedEvents } from "@/lib/api/events/data";
+// import { MOCK_EVENTS } from "@/utils/mock";
 import { fetchFeaturedEvents } from "@/lib/api/events/data";
 
 
-
 export default async function FeaturedEvents() {
-  const featuredEvents = await fetchFeaturedEvents()
-  const events = featuredEvents && featuredEvents.length > 0 ? featuredEvents : MOCK_EVENTS;
+  const totalEvents = await fetchFeaturedEvents();
+  const events = totalEvents.slice(0,6);
+  // console.log(events);
+  
+  // const events = featuredEvents && featuredEvents.length > 0 ? featuredEvents : MOCK_EVENTS;
   return (
     <section className="py-24 max-w-7xl mx-auto px-6 w-full">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">

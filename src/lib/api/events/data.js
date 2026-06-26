@@ -13,6 +13,7 @@ export const fetchEvents = async (query) => {
 
 
 export const fetchFeaturedEvents = async () => {
-  const result = await serverFetch(`/api/events/featured`);
+  const result = await serverFetch(`/api/events`);
   return result;
 };
+
