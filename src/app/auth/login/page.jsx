@@ -43,6 +43,13 @@ const LoginPage = () => {
       redirect("/");
     }
   };
+
+
+  const googleHandle = async () => {
+   await authClient.signIn.social({
+    provider: "google",
+  });
+};
   return (
     <div className="mx-auto">
       <Card className="w-full max-w-md border border-white/5 bg-slate-950/70 backdrop-blur-xl shadow-2xl p-4">
@@ -96,6 +103,7 @@ const LoginPage = () => {
           </div>
 
           <Button
+          onClick={googleHandle}
             variant="bordered"
             className="w-full border-white/10 hover:bg-white/5 hover:border-white/20 text-white font-semibold h-11"
             radius="lg"
