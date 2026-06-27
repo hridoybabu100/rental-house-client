@@ -50,7 +50,7 @@ const EditEventModal = ({ isModalOpen, setIsModalOpen, editingEvent }) => {
         const result = await updateEvent(updateData, editingEvent?._id)
 
         if (result.modifiedCount) {
-            toast.success("Event Updated successfully...")
+            toast.success("Property Updated successfully...")
             redirect("/dashboard/organizer")
         }
 
@@ -290,7 +290,7 @@ const EditEventModal = ({ isModalOpen, setIsModalOpen, editingEvent }) => {
                                     className="bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-11 px-6 shadow-lg shadow-pink-500/10"
                                     radius="lg"
                                 >
-                                    Host Event Now
+                                    Host Property Now
                                 </Button>
                             </Form>
                         </div>

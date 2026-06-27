@@ -37,7 +37,7 @@ const AttendeeOverviewPage = () => {
                 <Card className="glass border-white/5" radius="lg">
                     <div className="p-6 flex flex-row items-center justify-between">
                         <div className="space-y-1">
-                            <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Upcoming Events</span>
+                            <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Upcoming Properties</span>
                             <h2 className="text-3xl font-extrabold text-white">
                                 2
                             </h2>

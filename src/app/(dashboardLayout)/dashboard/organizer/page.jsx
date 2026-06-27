@@ -27,7 +27,7 @@ const OrganizerOverviewPage = async () => {
           <div className="p-6 flex flex-row items-center justify-between">
             <div className="space-y-1">
               <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">
-                Total Hosted Events
+                Total Hosted Properties
               </span>
               <h2 className="text-3xl font-extrabold text-white">
                 {stats.totalEvents}
@@ -76,13 +76,13 @@ const OrganizerOverviewPage = async () => {
           <div className="p-8 flex flex-col md:flex-row items-center justify-between gap-6 z-10">
             <div className="space-y-2">
               <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                <FaCrown className="text-yellow-400" /> Unlock Unlimited Event
+                <FaCrown className="text-yellow-400" /> Unlock Unlimited Properties.
                 Creation
               </h3>
               <p className="text-slate-400 text-xs max-w-xl leading-relaxed">
                 Standard organizer accounts are limited to{" "}
-                <strong>3 events</strong>. Upgrade to our Premium Package for{" "}
-                <strong>$49.00</strong> to host unlimited events.
+                <strong>3 Properties</strong>. Upgrade to our Premium Package for{" "}
+                <strong>$49.00</strong> to host unlimited properties.
               </p>
             </div>
             <UpgradePremiumButton />
@@ -100,7 +100,7 @@ const OrganizerOverviewPage = async () => {
                 dashboard
               </h3>
               <p className="text-slate-400 text-xs max-w-xl leading-relaxed">
-                You can create more then 3 events now...
+                You can create more then 3 properties now...
               </p>
             </div>
           </div>

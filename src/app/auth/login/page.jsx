@@ -59,7 +59,7 @@ const LoginPage = () => {
             Welcome Back
           </h1>
           <p className="text-slate-400 text-sm mt-1">
-            Access your Ticketo account and purchase event tickets.
+            Access your Ticketo account and purchase property tickets.
           </p>
         </CardHeader>
         <CardBody className="gap-4">

@@ -10,7 +10,7 @@ const DeleteEventModal = ({ IsDeleteOpen,setIsDeleteOpen,id }) => {
         const res = await deleteEvent(id);
         if (res?.deletedCount > 0) {
             router.refresh();
-            toast.success("Event deleted successfully");
+            toast.success("Property deleted successfully");
             setIsDeleteOpen(false)
         }
     }
@@ -19,15 +19,15 @@ const DeleteEventModal = ({ IsDeleteOpen,setIsDeleteOpen,id }) => {
             <Modal.Backdrop>
                 <Modal.Container>
                     <Modal.Dialog className="dark text-white bg-slate-950 border border-white/10 p-6 rounded-2xl w-full max-w-md mx-auto">
-                        <Modal.Header className="text-white font-bold text-lg">Delete Hosted Event</Modal.Header>
+                        <Modal.Header className="text-white font-bold text-lg">Delete Hosted Property</Modal.Header>
                         <Modal.Body className="py-2">
                             <p className="text-slate-300 text-sm">
-                                Are you sure you want to delete this event? This will permanently remove the listing and cannot be undone.
+                                Are you sure you want to delete this Property? This will permanently remove the listing and cannot be undone.
                             </p>
                         </Modal.Body>
                         <Modal.Footer className="flex justify-end gap-3 pt-4">
                             <Button variant="light" className="text-slate-400" onPress={() => setIsDeleteOpen(false)}>Cancel</Button>
-                            <Button color="danger" className="font-bold" onPress={handleDeleteEvent}>Delete Event</Button>
+                            <Button color="danger" className="font-bold" onPress={handleDeleteEvent}>Delete Property</Button>
                         </Modal.Footer>
                     </Modal.Dialog>
                 </Modal.Container>

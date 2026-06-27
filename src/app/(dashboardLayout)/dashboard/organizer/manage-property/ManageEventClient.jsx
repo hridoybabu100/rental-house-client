@@ -39,7 +39,7 @@ const ManageEventClient = ({events}) => {
                     className="py-4 px-6 text-slate-400 font-extrabold uppercase text-[11px] tracking-wider border-b border-white/5 bg-slate-950/20"
                     isRowHeader
                   >
-                    EVENT
+                    PROPERTY
                   </TableColumn>
                   <TableColumn className="py-4 px-6 text-slate-400 font-extrabold uppercase text-[11px] tracking-wider border-b border-white/5 bg-slate-950/20">
                     CATEGORY
@@ -63,7 +63,7 @@ const ManageEventClient = ({events}) => {
                 <TableBody
                   emptyContent={
                     <p className="text-slate-500 py-10 text-center font-medium">
-                      You haven not added any events yet.
+                      You haven not added any properties yet.
                     </p>
                   }
                 >
@@ -119,7 +119,7 @@ const ManageEventClient = ({events}) => {
                               <FaEdit size={12} />
                             </Button>
                             <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 transition-all duration-150 rounded-lg bg-slate-950 border border-white/10 px-2 py-1 text-[10px] text-white group-hover:scale-100 font-semibold z-30 whitespace-nowrap shadow-xl">
-                              Edit Event
+                              Edit Properties
                             </span>
                           </div>
                           <div className="group relative flex items-center justify-center w-fit">
@@ -136,7 +136,7 @@ const ManageEventClient = ({events}) => {
                               <FaTrash size={12} />
                             </Button>
                             <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 scale-0 transition-all duration-150 rounded-lg bg-slate-950 border border-white/10 px-2 py-1 text-[10px] text-white group-hover:scale-100 font-semibold z-30 whitespace-nowrap shadow-xl">
-                              Delete Event
+                              Delete Properties
                             </span>
                           </div>
                         </div>

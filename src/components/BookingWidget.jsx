@@ -108,7 +108,7 @@ export default function BookingWidget({ ticketPrice, availableSeats, eventId, ev
           </div>
         </div> : <Card>
           <p className="text-red-500">
-            {user?.role.toUpperCase()} can not book a event
+            {user?.role.toUpperCase()} can not book a Properties.
           </p>
 
         </Card>

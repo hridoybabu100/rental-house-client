@@ -64,10 +64,10 @@ const AddEventPage = () => {
         // console.log(result);
 
         if (result.insertedId) {
-            toast.success("Event added successfully...")
+            toast.success("Property added successfully...")
             redirect("/dashboard/organizer/manage-property")
         } else {
-            toast.error(result.message || "Event not created...")
+            toast.error(result.message || "Property not created...")
         }
 
 
@@ -76,8 +76,8 @@ const AddEventPage = () => {
     return (
         <div>
             <DashboardHeading
-                title="Add Event"
-                description="Add new event"
+                title="Add Property"
+                description="Add new Property"
             />
 
             <div className="mt-6 max-w-3xl">
@@ -87,10 +87,10 @@ const AddEventPage = () => {
                 >
                     <CardHeader className="flex flex-col gap-1 pb-4 border-b border-white/5 p-6">
                         <h3 className="text-xl font-bold text-white">
-                            Host a New Event
+                            Host a New Property
                         </h3>
                         <p className="text-slate-400 text-xs">
-                            Fill out the detailed event information. Banners and dates are
+                            Fill out the detailed property information. Banners and dates are
                             required.
                         </p>
                     </CardHeader>

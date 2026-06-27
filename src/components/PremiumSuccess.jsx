@@ -29,7 +29,7 @@ export default function PremiumSuccessPage() {
                             <FaCheckCircle className="text-green-500 mx-auto" size={40} />
                             <h3 className="text-white font-bold text-lg">Unlimited Hosting Unlocked</h3>
                             <p className="text-slate-400 text-xs leading-relaxed max-w-md mx-auto">
-                                The event limit has been permanently removed from your account. You can now host unlimited events, manage ticket configurations, and track complex ticket sales stats in real time!
+                                The property limit has been permanently removed from your account. You can now host unlimited property, manage ticket configurations, and track complex ticket sales stats in real time!
                             </p>
                         </div>
                     </CardBody>

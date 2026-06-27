@@ -1,6 +1,5 @@
 import Banner from "@/components/Banner";
 import FeaturedEvents from "@/components/FeaturedEvents";
-import FeaturedProperties from "@/components/FeaturedPropertics";
 import HowItWorks from "@/components/HowIt";
 import LiveStats from "@/components/LiveStats";
 import PopularCities from "@/components/PopulerCities";

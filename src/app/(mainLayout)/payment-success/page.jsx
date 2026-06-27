@@ -92,7 +92,7 @@ export default async function PaymentSuccess({ searchParams }) {
                                 className="w-full sm:w-auto border-white/10 hover:bg-white/5 text-white font-semibold h-11 px-6"
                                 radius="lg"
                             >
-                                Browse More Events
+                                Browse More Property
                             </Button>
                         </Link>
                     </CardFooter>
