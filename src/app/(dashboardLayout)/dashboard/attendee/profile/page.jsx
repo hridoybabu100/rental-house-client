@@ -16,19 +16,9 @@ import {
 } from "react-icons/fa";
 
 export default function ProfilePage() {
-//   const user = {
-//     name: "Hridoy Akanda",
-//     email: "hridoyakanda100@gmail.com",
-//     phone: "+880 1234-567890",
-//     role: "Tenant",
-//     location: "Dhaka, Bangladesh",
-//     joined: "17 Jun 2026",
-//     verified: true,
-//   };
-
-   const { data: session } = useSession();
-    const user = session?.user
-    // console.log('The user is a', user);
+  const { data: session } = useSession();
+  const user = session?.user;
+  // console.log('The user is a', user);
 
   return (
     <div className="space-y-8">
@@ -42,7 +32,7 @@ export default function ProfilePage() {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between">
             <div className="-mt-20">
               <div className="h-40 w-40 rounded-full border-4 border-[#0f172a] bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-5xl font-bold text-white shadow-2xl">
-                H
+               H
               </div>
 
               <div className="mt-4">
@@ -52,10 +42,7 @@ export default function ProfilePage() {
                   </h1>
 
                   {user?.verified && (
-                    <FaCheckCircle
-                      size={22}
-                      className="text-cyan-400"
-                    />
+                    <FaCheckCircle size={22} className="text-cyan-400" />
                   )}
                 </div>
 
@@ -86,12 +73,8 @@ export default function ProfilePage() {
         <Card className="p-6 bg-[#0f172a] border border-white/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">
-                Bookings
-              </p>
-              <h3 className="text-3xl font-bold text-white mt-2">
-                24
-              </h3>
+              <p className="text-slate-400 text-sm">Bookings</p>
+              <h3 className="text-3xl font-bold text-white mt-2">24</h3>
             </div>
             <FaHome size={28} className="text-cyan-400" />
           </div>
@@ -100,12 +83,8 @@ export default function ProfilePage() {
         <Card className="p-6 bg-[#0f172a] border border-white/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">
-                Saved Properties
-              </p>
-              <h3 className="text-3xl font-bold text-white mt-2">
-                15
-              </h3>
+              <p className="text-slate-400 text-sm">Saved Properties</p>
+              <h3 className="text-3xl font-bold text-white mt-2">15</h3>
             </div>
             <FaHeart size={28} className="text-pink-400" />
           </div>
@@ -114,12 +93,8 @@ export default function ProfilePage() {
         <Card className="p-6 bg-[#0f172a] border border-white/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">
-                Wishlist
-              </p>
-              <h3 className="text-3xl font-bold text-white mt-2">
-                8
-              </h3>
+              <p className="text-slate-400 text-sm">Wishlist</p>
+              <h3 className="text-3xl font-bold text-white mt-2">8</h3>
             </div>
             <FaBookmark size={28} className="text-amber-400" />
           </div>
@@ -128,17 +103,10 @@ export default function ProfilePage() {
         <Card className="p-6 bg-[#0f172a] border border-white/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">
-                Reviews
-              </p>
-              <h3 className="text-3xl font-bold text-white mt-2">
-                12
-              </h3>
+              <p className="text-slate-400 text-sm">Reviews</p>
+              <h3 className="text-3xl font-bold text-white mt-2">12</h3>
             </div>
-            <FaCheckCircle
-              size={28}
-              className="text-green-400"
-            />
+            <FaCheckCircle size={28} className="text-green-400" />
           </div>
         </Card>
       </div>
@@ -151,11 +119,7 @@ export default function ProfilePage() {
           </h2>
 
           <div className="space-y-6">
-            <InfoItem
-              icon={<FaUser />}
-              label="Full Name"
-              value={user?.name}
-            />
+            <InfoItem icon={<FaUser />} label="Full Name" value={user?.name} />
 
             <InfoItem
               icon={<FaEnvelope />}
@@ -172,9 +136,7 @@ export default function ProfilePage() {
         </Card>
 
         <Card className="p-6 bg-[#0f172a] border border-white/10">
-          <h2 className="text-xl font-bold text-white mb-6">
-            Account Details
-          </h2>
+          <h2 className="text-xl font-bold text-white mb-6">Account Details</h2>
 
           <div className="space-y-6">
             <InfoItem
@@ -183,11 +145,7 @@ export default function ProfilePage() {
               value={user?.location}
             />
 
-            <InfoItem
-              icon={<FaUser />}
-              label="Role"
-              value={user?.role}
-            />
+            <InfoItem icon={<FaUser />} label="Role" value={user?.role} />
 
             <InfoItem
               icon={<FaCalendarAlt />}
@@ -209,12 +167,8 @@ function InfoItem({ icon, label, value }) {
       </div>
 
       <div>
-        <p className="text-slate-400 text-sm">
-          {label}
-        </p>
-        <h4 className="text-white font-semibold mt-1">
-          {value}
-        </h4>
+        <p className="text-slate-400 text-sm">{label}</p>
+        <h4 className="text-white font-semibold mt-1">{value}</h4>
       </div>
     </div>
   );
