@@ -19,7 +19,7 @@ import {
 export default function ProfilePage() {
   const { data: session } = useSession();
   const user = session?.user;
-  console.log('The user is a', user);
+  console.log("The user is a", user);
 
   return (
     <div className="space-y-8">
@@ -32,22 +32,22 @@ export default function ProfilePage() {
         <div className="relative px-8 pb-8">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between">
             <div className="-mt-20">
-             <div className="h-40 w-40 rounded-full border-4 border-[#0f172a] overflow-hidden bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shadow-2xl">
-  {user?.image ? (
-    <Image
-      src={user.image}
-      alt={user.name || "Profile"}
-      width={160}
-      height={160}
-      className="h-full w-full object-cover"
-      priority
-    />
-  ) : (
-    <span className="text-5xl font-bold text-white">
-      {user?.name?.charAt(0).toUpperCase()}
-    </span>
-  )}
-</div>
+              <div className="h-40 w-40 rounded-full border-4 border-[#0f172a] overflow-hidden bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shadow-2xl">
+                {user?.image ? (
+                  <Image
+                    src={user.image}
+                    alt={user.name || "Profile"}
+                    width={160}
+                    height={160}
+                    className="h-full w-full object-cover"
+                    priority
+                  />
+                ) : (
+                  <span className="text-5xl font-bold text-white">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </div>
 
               <div className="mt-4">
                 <div className="flex items-center gap-3 flex-wrap">

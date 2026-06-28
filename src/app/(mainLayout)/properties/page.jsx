@@ -31,9 +31,9 @@ export default async function BrowseEventsPage({ searchParams }) {
         <div className="min-h-screen py-16 px-6 max-w-7xl mx-auto w-full space-y-12">
             {/* HEADER */}
             <div className="text-center md:text-left space-y-2">
-                <h1 className="text-4xl font-extrabold tracking-tight text-white">Browse Premium Events</h1>
+                <h1 className="text-4xl font-extrabold tracking-tight text-white">Browse Premium Properties</h1>
                 <p className="text-slate-400 text-sm max-w-xl">
-                    Search, filter, and discover state-of-the-art events. Instant Stripe booking guarantees your seat.
+                    Search, filter, and discover state-of-the-art properties. Instant Stripe booking guarantees your seat.
                 </p>
             </div>
 

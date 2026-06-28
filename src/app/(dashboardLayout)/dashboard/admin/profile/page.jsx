@@ -17,10 +17,16 @@ import {
   Sparkles,
   Activity,
 } from "lucide-react";
+import { useSession } from "@/lib/auth-client";
+import Image from "next/image";
 
 export default function AdminProfilePage() {
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
+
+   const { data: session } = useSession();
+    const user = session?.user;
+    console.log("The user is a", user);
 
   useEffect(() => {
     const fetchAdminProfile = async () => {
@@ -72,8 +78,24 @@ export default function AdminProfilePage() {
           <div className="relative z-10 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
             <div className="flex flex-col md:flex-row md:items-center gap-5">
               {/* Avatar */}
-              <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-3xl bg-gradient-to-br from-cyan-500/30 to-violet-500/30 border border-white/10 flex items-center justify-center text-4xl font-bold shadow-lg">
-                {admin?.name?.charAt(0)?.toUpperCase() || "A"}
+              
+              <div className="">
+                   <div className="h-40 w-40 rounded-full border-4 border-[#0f172a] overflow-hidden bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center shadow-2xl">
+                {user?.image ? (
+                  <Image
+                    src={user.image}
+                    alt={user.name || "Profile"}
+                    width={160}
+                    height={160}
+                    className="h-full w-full object-cover"
+                    priority
+                  />
+                ) : (
+                  <span className="text-5xl font-bold text-white">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </div>
 
                 <span className="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
                   <BadgeCheck size={18} />
@@ -89,28 +111,28 @@ export default function AdminProfilePage() {
                   </span>
 
                   <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm capitalize">
-                    {admin?.status || "Active"}
+                    {user?.status || "Active"}
                   </span>
                 </div>
 
                 <h1 className="text-3xl md:text-4xl font-bold mt-4">
-                  {admin?.name || "Admin Name"}
+                  {user?.name || "Admin Name"}
                 </h1>
 
                 <p className="text-slate-300 mt-2 max-w-2xl leading-7">
-                  {admin?.bio ||
+                  {user?.bio ||
                     "Platform management, property approval, transaction monitoring, user control এবং পুরো rental ecosystem maintain করার দায়িত্বে আছেন।"}
                 </p>
 
                 <div className="flex flex-wrap gap-3 mt-5">
-                  <MiniInfo icon={<Mail size={15} />} text={admin?.email || "No email"} />
+                  <MiniInfo icon={<Mail size={15} />} text={user?.email || "No email"} />
                   <MiniInfo
                     icon={<Phone size={15} />}
-                    text={admin?.phone || "No phone"}
+                    text={user?.phone || "+880176576545"}
                   />
                   <MiniInfo
                     icon={<MapPin size={15} />}
-                    text={admin?.location || "Bangladesh"}
+                    text={user?.location || "Bangladesh"}
                   />
                 </div>
               </div>
@@ -126,7 +148,7 @@ export default function AdminProfilePage() {
               <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                 <p className="text-sm text-slate-400">Joined</p>
                 <p className="font-semibold mt-1">
-                  {formatDate(admin?.joinedAt)}
+                  {formatDate(user?.joinedAt)}
                 </p>
               </div>
             </div>
@@ -147,14 +169,14 @@ export default function AdminProfilePage() {
               </div>
 
               <div className="mt-6 space-y-4">
-                <ProfileRow label="Full Name" value={admin?.name} />
-                <ProfileRow label="Email" value={admin?.email} />
-                <ProfileRow label="Phone" value={admin?.phone} />
-                <ProfileRow label="Role" value={admin?.role || "Admin"} />
-                <ProfileRow label="Location" value={admin?.location} />
+                <ProfileRow label="Full Name" value={user?.name} />
+                <ProfileRow label="Email" value={user?.email} />
+                <ProfileRow label="Phone" value={user?.phone} />
+                <ProfileRow label="Role" value={user?.role || "user"} />
+                <ProfileRow label="Location" value={user?.location} />
                 <ProfileRow
                   label="Account Status"
-                  value={admin?.status || "Active"}
+                  value={user?.status || "Active"}
                 />
               </div>
             </div>
@@ -171,19 +193,19 @@ export default function AdminProfilePage() {
               <div className="mt-6 space-y-4">
                 <SecurityRow
                   label="Admin Access"
-                  value={admin?.permissions?.adminAccess ? "Enabled" : "Disabled"}
+                  value={user?.permissions?.adminAccess ? "Enabled" : "Disabled"}
                 />
                 <SecurityRow
                   label="Property Control"
-                  value={admin?.permissions?.propertyControl ? "Enabled" : "Disabled"}
+                  value={user?.permissions?.propertyControl ? "Enabled" : "Disabled"}
                 />
                 <SecurityRow
                   label="Transaction Access"
-                  value={admin?.permissions?.transactionAccess ? "Enabled" : "Disabled"}
+                  value={user?.permissions?.transactionAccess ? "Enabled" : "Disabled"}
                 />
                 <SecurityRow
                   label="User Management"
-                  value={admin?.permissions?.userManagement ? "Enabled" : "Disabled"}
+                  value={user?.permissions?.userManagement ? "Enabled" : "Disabled"}
                 />
               </div>
             </div>
@@ -195,25 +217,25 @@ export default function AdminProfilePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4">
               <StatCard
                 title="Total Properties"
-                value={admin?.stats?.totalProperties || 0}
+                value={user?.stats?.totalProperties || 0}
                 icon={<Building2 size={20} />}
                 color="cyan"
               />
               <StatCard
                 title="Total Users"
-                value={admin?.stats?.totalUsers || 0}
+                value={user?.stats?.totalUsers || 0}
                 icon={<Users size={20} />}
                 color="violet"
               />
               <StatCard
                 title="Transactions"
-                value={admin?.stats?.totalTransactions || 0}
+                value={user?.stats?.totalTransactions || 0}
                 icon={<ReceiptText size={20} />}
                 color="amber"
               />
               <StatCard
                 title="Revenue"
-                value={formatCurrency(admin?.stats?.totalRevenue || 0)}
+                value={formatCurrency(user?.stats?.totalRevenue || 0)}
                 icon={<Wallet size={20} />}
                 color="emerald"
               />
