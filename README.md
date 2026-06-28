@@ -1,61 +1,61 @@
-**✅ Updated & More Professional README.md** (Improved Version)
+**✅ Final Beautiful & Complete README.md**
 
 ```markdown
 # RenNest - Premium Rental House Platform
 
-A modern, full-featured **rental property marketplace** built with Next.js 16, offering seamless property browsing, booking, and management with role-based dashboards.
+**A modern full-stack rental property marketplace** built with **Next.js 16** (frontend) and **Express.js + MongoDB** (backend). It features role-based dashboards, property management, secure bookings, and Stripe payments.
 
-![RenNest Banner](https://via.placeholder.com/1200x400?text=RenNest+-+Rental+Platform)
+![RenNest Banner](https://via.placeholder.com/1200x400/0f172a/60a5fa?text=RenNest+-+Find+Your+Dream+Home)
 
 ---
 
 ## 🌟 Highlights
 
-- **Role-based Dashboards** (Organizer, Attendee, Admin)
-- **Advanced Property Search & Filters**
-- **Secure Stripe Payments** + **Premium Subscription**
+- **Role-based Dashboards** — Organizer, Attendee & Admin
+- **Smart Property Search** with filters (title, category, location)
+- **Secure Bookings & Payments** via Stripe
+- **Premium Subscription** for unlimited property hosting
+- **Beautiful Dark UI** with smooth animations
 - **JWT Authentication** with Better Auth
-- **Fully Responsive** & Modern Dark UI
-- **Real-time Booking Management**
 
 ---
 
 ## 🛠 Tech Stack
 
-| Category           | Technologies                              |
-|--------------------|-------------------------------------------|
-| **Frontend**       | Next.js 16, React 19, Tailwind CSS        |
-| **UI Library**     | HeroUI, Lucide Icons, Framer Motion       |
-| **Authentication** | Better Auth + JWT + MongoDB Adapter       |
-| **Database**       | MongoDB                                   |
-| **Payments**       | Stripe                                    |
-| **Forms**          | React Hook Form                           |
-| **Deployment**     | Vercel (Recommended)                      |
+### Frontend (Client)
+| Category       | Technology                  |
+|----------------|-----------------------------|
+| Framework      | Next.js 16, React 19        |
+| Styling        | Tailwind CSS + HeroUI       |
+| Animations     | Framer Motion               |
+| Forms          | React Hook Form             |
+| Auth           | Better Auth (JWT)           |
+
+### Backend (Server)
+| Category       | Technology                  |
+|----------------|-----------------------------|
+| Framework      | Express.js                  |
+| Database       | MongoDB                     |
+| Auth           | Better Auth + MongoDB Adapter |
+| Payments       | Stripe                      |
 
 ---
 
-## ✨ Core Features
+## ✨ Features
 
-### 👤 For Organizers (Property Hosts)
-- Add, edit, delete, and manage properties
-- View bookings and earnings
-- **Premium Plan** – Unlimited property hosting
+### For Organizers (Hosts)
+- Add, edit, and delete properties
+- Manage bookings and earnings
+- Upgrade to **Premium** for unlimited listings
 
-### 👥 For Attendees (Renters)
-- Browse featured and filtered properties
-- Instant booking with secure payment
-- Access to booking history & digital tickets
+### For Attendees (Renters)
+- Browse featured & filtered properties
+- Instant booking with Stripe payment
+- View booking history & tickets
 
-### ⚡ For Admins
+### For Admins
 - Platform overview and analytics
-- Manage users and transactions
-- Monitor all properties and payments
-
-### 🔍 General Features
-- Smart search with category & location filters
-- Featured properties showcase
-- Responsive design for mobile & desktop
-- Toast notifications and smooth animations
+- Manage users, properties & transactions
 
 ---
 
@@ -63,87 +63,100 @@ A modern, full-featured **rental property marketplace** built with Next.js 16, o
 
 ### 1. Clone the Project
 ```bash
-git clone <your-repository-url>
-cd rental-house-client-main
+git clone <your-repo-url>
+cd RenNest
 ```
 
-### 2. Install Dependencies
+### 2. Setup Frontend
 ```bash
+cd rental-house-client-main
 npm install
 ```
 
-### 3. Setup Environment Variables
-
-Create `.env.local` file:
-
+Create `.env.local`:
 ```env
-# Image Upload
-NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key_here
-
-# Better Auth
+NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_key
 BETTER_AUTH_URL=http://localhost:3000
-BETTER_AUTH_SECRET=your_strong_random_secret_key
-
-# MongoDB
-MOONGO_DB_DATA_BASE=your_mongodb_connection_string
-MOONGO_DB_NAME=your_database_name
-
-# Stripe
+BETTER_AUTH_SECRET=your-secret-key
+MOONGO_DB_DATA_BASE=mongodb+srv://...
+MOONGO_DB_NAME=House_DB
 STRIPE_SECRET_KEY=sk_test_...
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
 ```
 
-### 4. Run Locally
+Run:
 ```bash
 npm run dev
+# → http://localhost:3000
 ```
 
-Visit → **http://localhost:3000**
+### 3. Setup Backend
+```bash
+cd ../Rental-House-Server-main
+npm install
+```
+
+Create `.env`:
+```env
+MOONGO_DB_DATA_BASE=mongodb+srv://...
+PORT=5000
+```
+
+Run:
+```bash
+npm start
+# → http://localhost:5000
+```
 
 ---
 
 ## 📁 Project Structure
 
-```bash
-src/
-├── app/                     # App Router Pages
-├── components/              # Reusable Components
-├── dashboard/               # Role-based Dashboard
-├── lib/
-│   ├── api/                 # Server Actions & Fetching
-│   ├── auth.js              # Better Auth Configuration
-│   └── stripe.js
-├── utils/
-└── public/
+```
+RenNest/
+├── rental-house-client-main/      # Next.js Frontend
+│   ├── src/app/                   # Pages & API Routes
+│   ├── src/components/            # Reusable Components
+│   ├── src/dashboard/             # Role-based Dashboards
+│   └── src/lib/                   # API & Auth
+│
+└── Rental-House-Server-main/      # Express Backend
+    ├── index.js                   # Main Server
+    └── vercel.json                # Deployment Config
 ```
 
 ---
 
-## 📜 Available Scripts
+## 📜 Scripts
 
+**Frontend:**
 ```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run start    # Start production server
-npm run lint     # Run ESLint
+npm run dev      # Development
+npm run build    # Production Build
+npm run start    # Run Production
+```
+
+**Backend:**
+```bash
+npm start        # Start Server
 ```
 
 ---
 
 ## 🎨 Design & UX
 
-- Sleek dark theme with glassmorphism effects
-- Smooth page transitions and hover animations
-- Clean, professional, and user-friendly interface
-- Mobile-first responsive design
+- Elegant dark theme with glassmorphism
+- Smooth hover effects and page transitions
+- Fully responsive for all devices
+- Clean, modern, and professional interface
 
 ---
 
-## 🔐 Authentication & Security
+## 🔐 Security & Auth
 
-- Email/Password + Google OAuth
+- Email + Password + Google OAuth
 - JWT-based secure sessions
-- Protected API routes and pages
+- Protected routes and API endpoints
 - Role-based access control
 
 ---
@@ -151,25 +164,32 @@ npm run lint     # Run ESLint
 ## 💰 Payment System
 
 - Stripe integration for bookings
-- Subscription-based premium upgrade
-- Secure checkout experience
+- Premium subscription for organizers
+- Transaction history for users
 
 ---
 
 ## 📄 License
 
-This project is open for **portfolio, learning, and personal use**. Feel free to fork and customize it.
+Open for **portfolio, learning, and personal use**. Feel free to fork and customize.
 
 ---
 
-## 👨‍💻 Developer
+## 👨‍💻 Developed By
 
-**RenNest** – Built with passion for modern web experiences.
+**RenNest** – Making property rental simple, secure, and beautiful.
 
----
-
-**Made with ❤️ using Next.js**
+Built with ❤️ using Next.js & Express.
 
 ---
 
-Would you like me to add **screenshots**, **demo link**, or **contribution guidelines** as well? Just tell me!
+**Ready for Vercel Deployment!**
+
+---
+
+Let me know if you want to add **screenshots**, **demo link**, or **contribution section**! 🚀
+```
+
+This is the **final polished version** — clean, professional, and comprehensive for both client and server. You can copy-paste it directly into your `README.md`. 
+
+If you need any more modifications, just tell me!
