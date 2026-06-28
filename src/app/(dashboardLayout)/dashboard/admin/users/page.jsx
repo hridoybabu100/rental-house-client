@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import {
   Card,
@@ -12,30 +13,36 @@ import {
 } from "@heroui/react";
 
 const AdminUsersTable = () => {
+
+  //  const { data: session } = useSession();
+  //   const user = session?.user;
+  //   console.log("The user is a", user);
+
+
   const users = [
     {
       _id: "u1",
-      name: "John Doe",
-      email: "john@example.com",
+      name: "Hridoy Akanda",
+      email: "hridoyakanda@gmail.com",
       role: "attendee",
       isBlocked: false,
-      image: "https://api.dicebear.com/7.x/adventurer/svg?seed=John"
+      image: "https://scontent.fcgp38-1.fna.fbcdn.net/v/t39.30808-6/569923515_122105590827057745_5704713662004147032_n.jpg?stp=dst-jpg_tt6&cstp=mx333x336&ctp=s333x336&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=F-Xk3oE1E4MQ7kNvwG3XBN8&_nc_oc=Adqot1cjtWXGCQW11WbE5GbkS-31gNkUKIFMxo6P8SYq2Pbb3V1VK0Pgszq4XvkiBmE&_nc_zt=23&_nc_ht=scontent.fcgp38-1.fna&_nc_gid=ulHsd9mweHlMLSHo1fFm2g&_nc_ss=7b2a8&oh=00_Af8LpBouwdoIsaNfgAW_hYNIIcOZ_IvZUyYqU2fsIzqs3Q&oe=6A46C881"
     },
     {
       _id: "u2",
-      name: "Organizer John",
-      email: "organizer@example.com",
+      name: "Ishrat Jahan Jecika",
+      email: "ishratJahnajeci@gmail.com",
       role: "organizer",
       isBlocked: false,
-      image: "https://api.dicebear.com/7.x/adventurer/svg?seed=Organizer"
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWqM6GKlr42zy0RolT0AKqR3bKd3M-ApmJrA&s"
     },
     {
       _id: "u3",
-      name: "Banned User",
-      email: "banned@example.com",
+      name: "Jr. Milton",
+      email: "jrmilton@gmail.com",
       role: "attendee",
       isBlocked: true,
-      image: "https://api.dicebear.com/7.x/adventurer/svg?seed=Banned"
+      image: "https://scontent.fcgp38-1.fna.fbcdn.net/v/t39.30808-6/636261693_122121365823057745_7533436722181381533_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2039&ctp=s2048x2039&_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=rx7vg2i04DQQ7kNvwESRle-&_nc_oc=Adot-_6ZlKHTQczwzK4xH672N7aYFSK6n8D1iRD9EYpvsoJb8cIPyJNQv_ge5B9Zvb8&_nc_zt=23&_nc_ht=scontent.fcgp38-1.fna&_nc_gid=aBSe_tw_sRgx-Imx9Mcr7w&_nc_ss=7b2a8&oh=00_Af_fa2BDtKoSeygXW-cP4XHndl8qoPz1K07xJ-eC6v1GWg&oe=6A46B70D"
     }
   ];
 
