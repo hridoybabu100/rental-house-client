@@ -64,6 +64,8 @@ export default function RegisterPage() {
   };
   // console.log(errors);
 
+  
+
   return (
     <div>
       <Card className="w-full max-w-lg border border-white/5 bg-slate-950/70 backdrop-blur-xl shadow-2xl p-4 mx-auto">
