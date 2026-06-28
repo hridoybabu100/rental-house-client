@@ -11,6 +11,8 @@ const ManageEvent = async () => {
     headers: await headers(),
   });
   const events = await myEvents(session?.user?.email);
+  // console.log('hello');
+  
 
   return (
     <div>

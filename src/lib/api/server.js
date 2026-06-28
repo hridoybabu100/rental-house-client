@@ -1,5 +1,20 @@
 
+
 import { baseURL } from './baseUrl';
+import { getUserToken } from './session';
+
+export const authHeaders = async() => {
+  const token = await getUserToken();
+  // console.log('Token', token);
+  
+  const header = {
+    authorization : `Bearer ${token}`
+  }
+
+  // console.log('headers', header);
+  
+  return token ? header : {};
+}
 
 export const serverMutation = async (path, method, data) => {
   //   console.log(data);
@@ -8,6 +23,7 @@ export const serverMutation = async (path, method, data) => {
     method: method,
     headers: {
       'Content-Type': 'application/json',
+      ... await authHeaders()
     },
     body: JSON.stringify(data),
   });
@@ -27,3 +43,13 @@ export const serverFetch = async (path) => {
   });
   return res.json();
 };
+
+
+export const protectedFatch = async(path) => {
+   const res = await fetch(`${baseURL}${path}`,{
+    headers : await authHeaders()
+   });
+
+  return res.json();
+
+}

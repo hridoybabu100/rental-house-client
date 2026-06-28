@@ -6,6 +6,7 @@ const client = new MongoClient(process.env.MOONGO_DB_DATA_BASE);
 const db = client.db(process.env.MOONGO_DB_NAME);
 
 import dns from "node:dns/promises";
+import { jwt } from "better-auth/plugins";
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 export const auth = betterAuth({
@@ -43,12 +44,12 @@ export const auth = betterAuth({
 
     // json web tokeen
 
-  //     session: {
-  //   cookieCache: {
-  //     enabled: true,
-  //     strategy: "jwt",
-  //     maxAge: 60 * 24 * 60,
-  //   },
-  // },
-  // plugins: [jwt()],
+      session: {
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      maxAge: 60 * 24 * 60,
+    },
+  },
+  plugins: [jwt()],
 });

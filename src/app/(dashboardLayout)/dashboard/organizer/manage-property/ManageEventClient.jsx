@@ -24,6 +24,7 @@ const ManageEventClient = ({events}) => {
   const [deletedId, setIDeleteId] = useState(false);
 
   const { data: session } = useSession();
+// console.log('events', events);
 
 
 

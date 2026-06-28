@@ -1,7 +1,8 @@
-import { serverFetch } from "../server";
+import { protectedFatch, serverFetch } from "../server";
 
 export const myEvents = async (email) => {
-  const result = await serverFetch(`/api/events/${email}`);
+  
+  const result = await protectedFatch(`/api/events/${email}`);
   return result;
 };
 
@@ -13,7 +14,9 @@ export const fetchEvents = async (query) => {
 
 
 export const fetchFeaturedEvents = async () => {
-  const result = await serverFetch(`/api/events`);
+  const result = await protectedFatch(`/api/events`);
   return result;
 };
+
+
 
